@@ -1,0 +1,1447 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+	<link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+<link rel="manifest" href="favicon_io/site.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Certifications | Solekhdzhon Khuseynov</title>
+    <meta name="description" content="Professional certifications including Google Cybersecurity and Cisco earned by Solekhdzhon Khuseynov." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --green: #00ff9d;
+            --green-dim: #00cc7a;
+            --green-glow: rgba(0, 255, 157, 0.12);
+            --red: #ff0055;
+            --blue: #00aaff;
+            --yellow: #ffd700;
+            --orange: #ff8c00;
+            --bg: #030508;
+            --bg2: #070b0f;
+            --bg3: #0c1219;
+            --border: rgba(0, 255, 157, 0.12);
+            --border-hover: rgba(0, 255, 157, 0.35);
+            --text: #c8d8e8;
+            --text-dim: #5a7a8a;
+            --text-bright: #e8f4f8;
+            --mono: 'Space Mono', monospace;
+            --display: 'Syne', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--display);
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpolygon points='0,0 0,14 4,10 7,16 9,15 6,9 12,9' fill='%2300ff9d' stroke='%23030508' stroke-width='1'/%3E%3C/svg%3E"), auto; }
+        a, button, [role="button"], [tabindex] {
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpolygon points='0,0 0,14 4,10 7,16 9,15 6,9 12,9' fill='%2300ff9d' stroke='%23030508' stroke-width='1'/%3E%3C/svg%3E"), pointer;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            background-image: linear-gradient(rgba(0,255,157,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,157,0.025) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+        }
+        .corner-accent { position: fixed; width: 300px; height: 300px; pointer-events: none; z-index: 1; }
+        .corner-accent.tl { top: 0; left: 0; background: radial-gradient(circle at 0 0, rgba(0,255,157,0.06), transparent 70%); }
+        .corner-accent.br { bottom: 0; right: 0; background: radial-gradient(circle at 100% 100%, rgba(0,170,255,0.05), transparent 70%); }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: rgba(0,255,157,0.2); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,255,157,0.4); }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+            padding: 0 2rem; height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            background: rgba(3,5,8,0.88); backdrop-filter: blur(20px);
+        }
+        .nav-logo { text-decoration: none; display: flex; align-items: center; }
+        .nav-logo img { height: 60px; width: auto; display: block; }
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+        .nav-links a {
+            font-family: var(--mono); font-size: 0.75rem; color: var(--text-dim);
+            text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; position: relative;
+        }
+        .nav-links a::before { content: '//'; margin-right: 0.3em; opacity: 0; color: var(--green); transition: opacity 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--green); background: rgba(0,255,157,0.055); border-color: rgba(0,255,157,0.14); }
+        .nav-links a:hover::before, .nav-links a.active::before { opacity: 1; }
+        .nav-status { display: flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.7rem; color: var(--text-dim); }
+        .status-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
+        @keyframes pulse-dot { 0%,100%{ box-shadow: 0 0 0 0 rgba(0,255,157,0.4); } 50%{ box-shadow: 0 0 0 6px rgba(0,255,157,0); } }
+        .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 4px; }
+        .hamburger span { display: block; width: 22px; height: 1px; background: var(--green); transition: all 0.3s; }
+        .mobile-menu {
+            display: none; position: fixed; top: 64px; left: 0; right: 0;
+            background: rgba(3,5,8,0.97); border-bottom: 1px solid var(--border);
+            padding: 2rem; z-index: 499; flex-direction: column; gap: 1.5rem;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--text-dim); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+        .mobile-menu a:hover, .mobile-menu a.active { color: var(--green); }
+
+        /* HERO */
+        .hero {
+            position: relative; z-index: 2;
+            min-height: 52vh; display: flex; align-items: center;
+            padding: 110px 2rem 60px;
+        }
+        .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+        .hero-label {
+            font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--green); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;
+            opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+        }
+        .hero-label::before { content: ''; flex: 0 0 40px; height: 1px; background: var(--green); }
+        .hero h1 {
+            font-family: var(--display); font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 800; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 2rem;
+            opacity: 0; animation: fadeUp 0.6s 0.35s forwards;
+        }
+        .hero h1 .line-1 { color: var(--text-bright); display: block; }
+        .hero h1 .line-2 { display: block; color: transparent; -webkit-text-stroke: 1px var(--green); }
+        .hero-desc {
+            font-family: var(--mono); font-size: 0.85rem; line-height: 1.8;
+            color: var(--text-dim); max-width: 520px; margin-bottom: 2.5rem;
+            opacity: 0; animation: fadeUp 0.6s 0.5s forwards;
+        }
+        .hero-stats { display: flex; gap: 3rem; opacity: 0; animation: fadeUp 0.6s 0.65s forwards; }
+        .hero-stat-val { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--green); line-height: 1; }
+        .hero-stat-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.4rem; }
+        @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+
+        /* PAGE BODY */
+        .page-body { position: relative; z-index: 2; padding: 0 2rem 8rem; }
+        .page-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 6rem; }
+
+        /* SECTION DIVIDER */
+        .cert-group { display: flex; flex-direction: column; gap: 2rem; }
+        .group-header { display: flex; align-items: center; gap: 1.5rem; }
+        .group-label {
+            font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.25em;
+            text-transform: uppercase; color: var(--green); white-space: nowrap;
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .group-label::before { content: '//'; opacity: 0.5; }
+        .group-line { flex: 1; height: 1px; background: var(--border); }
+        .group-count {
+            font-family: var(--mono); font-size: 0.6rem; color: var(--text-dim);
+            border: 1px solid var(--border); padding: 0.2rem 0.75rem; white-space: nowrap;
+        }
+
+        /* SPLIT PANEL */
+        .split-panel {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            border: 1px solid var(--border);
+            background: rgba(7,11,15,0.7);
+        }
+
+        .main-cert-panel {
+            border-right: 1px solid var(--border);
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background: rgba(0,255,157,0.015);
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1400px;
+            --rx: 0deg;
+            --ry: 0deg;
+            --lift: 0px;
+            --glow-x: 50%;
+            --glow-y: 50%;
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+        }
+        .main-cert-panel::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(0,255,157,0.16), transparent 34%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease;
+        }
+        .main-cert-panel.is-3d-active {
+            transform: perspective(1400px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-4px) translateZ(0);
+            border-color: var(--border-hover);
+            box-shadow: 0 24px 42px rgba(0, 0, 0, 0.35), 0 0 30px rgba(0,255,157,0.08);
+        }
+        .main-cert-panel.is-3d-active::after { opacity: 1; }
+        .main-cert-badge {
+            font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em;
+            text-transform: uppercase; color: var(--bg); background: var(--green);
+            padding: 0.2rem 0.7rem; align-self: flex-start; font-weight: 700;
+        }
+        .main-cert-img-box {
+            width: 100%; aspect-ratio: 4/3;
+            border: 1px solid var(--border);
+            background: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+        .main-cert-img-box img {
+            width: 100%; height: 100%; object-fit: contain;
+            padding: 12px;
+            transition: transform 0.4s;
+        }
+        .main-cert-img-box:hover img { transform: scale(1.03); }
+        .main-cert-img-box .img-label {
+            position: absolute; bottom: 0.5rem; left: 0.5rem;
+            font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em;
+            color: var(--green); background: rgba(3,5,8,0.85); padding: 0.15rem 0.5rem;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .main-cert-img-box:hover .img-label { opacity: 1; }
+        .main-cert-name {
+            font-family: var(--display); font-size: 1.15rem; font-weight: 800;
+            color: var(--text-bright); line-height: 1.2;
+        }
+        .main-cert-issuer { font-family: var(--mono); font-size: 0.65rem; color: var(--text-dim); }
+        .main-cert-desc { font-family: var(--mono); font-size: 0.72rem; line-height: 1.7; color: var(--text-dim); }
+        .main-cert-stats { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border); }
+        .mstat { padding: 0.75rem 0.5rem; text-align: center; border-right: 1px solid var(--border); }
+        .mstat:last-child { border-right: none; }
+        .mstat-val { font-family: var(--mono); font-size: 1.1rem; font-weight: 700; color: var(--green); }
+        .mstat-label { font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.2rem; }
+        .main-cert-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .main-cert-panel .main-cert-badge,
+        .main-cert-panel .main-cert-name,
+        .main-cert-panel .main-cert-issuer,
+        .main-cert-panel .main-cert-desc,
+        .main-cert-panel .main-cert-stats,
+        .main-cert-panel .main-cert-actions {
+            position: relative;
+            transform: translateZ(calc(var(--lift) * 1));
+            transition: transform 0.22s ease;
+        }
+        .main-cert-panel .main-cert-img-box {
+            transform: translateZ(calc(var(--lift) * 1.8));
+            transition: transform 0.22s ease, border-color 0.22s ease;
+        }
+        .main-cert-panel.is-3d-active .main-cert-img-box {
+            border-color: var(--border-hover);
+        }
+        .main-cert-panel .main-cert-stats {
+            transform: translateZ(calc(var(--lift) * 0.85));
+        }
+        .main-cert-panel .main-cert-actions {
+            transform: translateZ(calc(var(--lift) * 1.2));
+        }
+        .btn-green {
+            font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+            border: 1px solid var(--green); color: var(--green); background: transparent;
+            padding: 0.45rem 1rem; text-decoration: none; transition: all 0.2s;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+        }
+        .btn-green:hover { background: var(--green-glow); }
+        .btn-blue {
+            font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+            border: 1px solid var(--blue); color: var(--blue); background: transparent;
+            padding: 0.45rem 1rem; transition: all 0.2s;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+        }
+        .btn-blue:hover { background: rgba(0,170,255,0.1); }
+
+        .courses-panel {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            max-height: 680px;
+            overflow-y: auto;
+        }
+        .courses-panel::-webkit-scrollbar { width: 3px; }
+        .courses-panel::-webkit-scrollbar-track { background: transparent; }
+        .courses-panel::-webkit-scrollbar-thumb { background: var(--green); border-radius: 2px; }
+
+        .courses-panel-header {
+            font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em;
+            text-transform: uppercase; color: var(--text-dim);
+            padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between;
+        }
+        .detail-stack { display: flex; flex-direction: column; gap: 1rem; }
+        .detail-card {
+            border: 1px solid var(--border);
+            background: rgba(0,255,157,0.02);
+            padding: 1rem 1.05rem;
+        }
+        .detail-card-title {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 0.7rem;
+        }
+        .detail-card p {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            line-height: 1.7;
+            color: var(--text-dim);
+        }
+        .detail-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .detail-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+        }
+        .detail-list-item::before {
+            content: '>';
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .detail-tag {
+            font-family: var(--mono);
+            font-size: 0.56rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            padding: 0.15rem 0.45rem;
+            border: 1px solid var(--border);
+        }
+        .courses-inner-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .course-cell {
+            background: var(--bg2);
+            display: flex; flex-direction: column;
+            transition: background 0.25s;
+            position: relative;
+        }
+        .course-cell:hover { background: rgba(0,255,157,0.03); }
+        .course-cell-img {
+            width: 100%; aspect-ratio: 16/10;
+            background: #fff;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        .course-cell-img img {
+            width: 100%; height: 100%; object-fit: contain;
+            padding: 8px;
+            transition: transform 0.4s;
+        }
+        .course-cell-img:hover img { transform: scale(1.04); }
+        .course-cell-img .hover-overlay {
+            position: absolute; inset: 0;
+            background: rgba(0,255,157,0.12);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--green);
+            opacity: 0; transition: opacity 0.25s; backdrop-filter: blur(3px);
+        }
+        .course-cell-img:hover .hover-overlay { opacity: 1; }
+        .course-cell-body { padding: 0.75rem; flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+        .course-cell-title { font-family: var(--display); font-size: 0.78rem; font-weight: 700; color: var(--text-bright); line-height: 1.25; }
+        .course-cell-meta { font-family: var(--mono); font-size: 0.58rem; color: var(--text-dim); }
+        .course-cell-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: auto; padding-top: 0.4rem; }
+        .course-tag {
+            font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.06em;
+            padding: 0.1rem 0.4rem; border: 1px solid var(--border); color: var(--text-dim); text-transform: uppercase;
+        }
+        .course-cell-actions { display: flex; gap: 0.5rem; padding: 0.6rem 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); }
+        .micro-btn {
+            font-family: var(--mono); font-size: 0.57rem; letter-spacing: 0.07em; text-transform: uppercase;
+            border: 1px solid var(--border); color: var(--text-dim); background: transparent;
+            padding: 0.25rem 0.6rem; text-decoration: none; transition: all 0.2s;
+        }
+        .micro-btn.green { border-color: var(--green); color: var(--green); }
+        .micro-btn.blue { border-color: var(--blue); color: var(--blue); }
+        .micro-btn:hover { background: var(--green-glow); border-color: var(--green); color: var(--green); }
+        .micro-btn.blue:hover { background: rgba(0,170,255,0.1); border-color: var(--blue); color: var(--blue); }
+
+        /* FLAT CERTS GRID */
+        .flat-certs-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .flat-cert {
+            background: var(--bg2);
+            padding: 0;
+            display: flex; flex-direction: column;
+            opacity: 0; transform: translateY(14px);
+            transition: opacity 0.5s, transform 0.5s, background 0.25s;
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 1400px;
+            --rx: 0deg;
+            --ry: 0deg;
+            --lift: 0px;
+            --glow-x: 50%;
+            --glow-y: 50%;
+            overflow: hidden;
+        }
+        .flat-cert.visible { opacity: 1; transform: translateY(0); }
+        .flat-cert:hover { background: rgba(0,255,157,0.025); }
+        .flat-cert::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(0,255,157,0.14), transparent 35%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.22s ease;
+        }
+        .flat-cert.is-3d-active {
+            transform: perspective(1400px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-8px);
+            box-shadow: 0 20px 36px rgba(0, 0, 0, 0.32), 0 0 24px rgba(0,255,157,0.06);
+            border-color: var(--border-hover);
+        }
+        .flat-cert.is-3d-active::after { opacity: 1; }
+
+        .flat-cert-status {
+            position: absolute; top: 0; right: 0;
+            font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em;
+            text-transform: uppercase; background: var(--green); color: var(--bg);
+            padding: 0.15rem 0.5rem; font-weight: 700;
+            transform: translateZ(calc(var(--lift) * 1.6));
+        }
+        .flat-cert-img {
+            width: 100%; aspect-ratio: 16/9;
+            background: #fff;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transform: translateZ(calc(var(--lift) * 1.8));
+            transition: transform 0.22s ease;
+        }
+        .flat-cert-img img,
+        .flat-cert-img iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border: 0;
+            transition: transform 0.4s;
+        }
+        .flat-cert-img img { object-fit: contain; padding: 8px; }
+        .flat-cert-img iframe {
+            background: #fff;
+            pointer-events: none;
+        }
+        .flat-cert-img:hover img,
+        .flat-cert-img:hover iframe { transform: scale(1.04); }
+        .flat-cert-img .hover-overlay {
+            position: absolute; inset: 0; background: rgba(0,255,157,0.1);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; color: var(--green);
+            opacity: 0; transition: opacity 0.25s; backdrop-filter: blur(3px);
+        }
+        .flat-cert-img:hover .hover-overlay { opacity: 1; }
+
+        .flat-cert-body { padding: 1rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; transform: translateZ(calc(var(--lift) * 1)); transition: transform 0.22s ease; }
+        .flat-cert-top { display: flex; align-items: flex-start; gap: 0.75rem; }
+        .flat-cert-icon {
+            width: 32px; height: 32px; border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--mono); font-size: 0.6rem; font-weight: 700;
+            flex-shrink: 0; background: var(--green-glow); color: var(--green);
+        }
+        .flat-cert-issuer { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+        .flat-cert-title { font-family: var(--display); font-size: 0.9rem; font-weight: 700; color: var(--text-bright); line-height: 1.2; }
+        .flat-cert-date { font-family: var(--mono); font-size: 0.6rem; color: var(--text-dim); }
+        .flat-cert-desc { font-family: var(--mono); font-size: 0.68rem; line-height: 1.65; color: var(--text-dim); -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; display: -webkit-box; }
+        .flat-cert-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: auto; }
+        .flat-tag { font-family: var(--mono); font-size: 0.55rem; padding: 0.1rem 0.45rem; border: 1px solid var(--border); color: var(--text-dim); text-transform: uppercase; }
+        .flat-cert-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0.65rem 1rem; border-top: 1px solid rgba(255,255,255,0.04);
+            gap: 0.5rem;
+            transform: translateZ(calc(var(--lift) * 1.2));
+            transition: transform 0.22s ease;
+        }
+        .flat-cert-id { font-family: var(--mono); font-size: 0.58rem; color: var(--text-dim); }
+        .flat-cert-actions { display: flex; gap: 0.5rem; }
+
+        /* IN PROGRESS */
+        .progress-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+        .progress-card {
+            background: var(--bg2); padding: 2rem;
+            opacity: 0; transform: translateY(14px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .progress-card.visible { opacity: 1; transform: translateY(0); }
+        .progress-card-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .progress-badge {
+            width: 48px; height: 48px; border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--mono); font-size: 0.75rem; font-weight: 700;
+        }
+        .progress-title { font-family: var(--display); font-size: 1.1rem; font-weight: 800; color: var(--text-bright); }
+        .progress-expected { font-family: var(--mono); font-size: 0.62rem; color: var(--text-dim); margin-top: 0.15rem; }
+        .progress-bar-wrap { margin-bottom: 1rem; }
+        .progress-bar-labels { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.62rem; color: var(--text-dim); margin-bottom: 0.4rem; }
+        .progress-bar-track { height: 3px; background: rgba(255,255,255,0.06); }
+        .progress-bar-fill { height: 100%; background: var(--green); transform: scaleX(0); transform-origin: left; transition: transform 1.2s cubic-bezier(0.4,0,0.2,1); }
+        .progress-card.visible .progress-bar-fill { transform: scaleX(1); }
+        .progress-domain { font-family: var(--mono); font-size: 0.68rem; color: var(--text-dim); line-height: 1.6; }
+
+        /* MODAL */
+        .preview-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            padding: 24px;
+            background:
+                radial-gradient(circle at top, rgba(0,255,157,0.06), transparent 32%),
+                rgba(2,4,7,0.96);
+            backdrop-filter: blur(20px);
+            z-index: 10000; display: flex; align-items: center; justify-content: center;
+            visibility: hidden; opacity: 0; transition: visibility 0.22s, opacity 0.22s;
+        }
+        .preview-modal.active { visibility: visible; opacity: 1; }
+        .modal-box {
+            width: min(1120px, calc(100vw - 48px));
+            max-height: calc(100vh - 48px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,255,157,0.38);
+            background:
+                linear-gradient(180deg, rgba(5,10,14,0.98), rgba(4,7,10,0.98)),
+                var(--bg2);
+            box-shadow:
+                0 32px 80px rgba(0,0,0,0.58),
+                0 0 0 1px rgba(0,255,157,0.04) inset,
+                0 0 30px rgba(0,255,157,0.05);
+        }
+        .modal-head {
+            min-height: 62px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 26px;
+            border-bottom: 1px solid rgba(0,255,157,0.14);
+            background: rgba(5,10,14,0.82);
+        }
+        .modal-head-title {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            color: var(--green);
+            text-transform: none;
+        }
+        .modal-close {
+            background: rgba(4,7,10,0.9);
+            border: 1px solid rgba(0,255,157,0.14);
+            color: rgba(154, 196, 214, 0.72);
+            width: 36px;
+            height: 36px;
+            font-family: var(--mono);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover {
+            border-color: rgba(0,255,157,0.42);
+            color: var(--green);
+            background: rgba(0,255,157,0.06);
+        }
+        .modal-body {
+            padding: 30px 32px 36px;
+            overflow: auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: linear-gradient(180deg, rgba(3,6,9,0.98), rgba(2,4,7,0.98));
+        }
+        .modal-canvas {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: rgba(255,255,255,0.02);
+        }
+        .modal-body img,
+        .modal-body iframe {
+            width: 100%;
+            max-width: 860px;
+            border: 0;
+            background: #fff;
+            box-shadow: 0 10px 34px rgba(0,0,0,0.26);
+        }
+        .modal-body img {
+            height: auto;
+            max-height: none;
+            object-fit: contain;
+        }
+        .modal-body iframe {
+            height: min(72vh, 980px);
+        }
+
+        /* FOOTER - matches index.html exactly */
+        footer {
+            position: relative; z-index: 2;
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+        }
+        .footer-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; flex-wrap: wrap;
+            justify-content: space-between; align-items: center;
+            gap: 2rem;
+        }
+        .footer-logo { text-decoration: none; display: flex; align-items: center; }
+        .footer-logo img { height: 60px; width: auto; display: block; }
+        .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+        .footer-links a {
+            font-family: var(--mono); font-size: 0.7rem; color: var(--text-dim);
+            text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s;
+        }
+        .footer-links a:hover, .footer-links a.active { color: var(--green); }
+        .footer-copy {
+            font-family: var(--mono); font-size: 0.65rem; color: var(--text-dim);
+            letter-spacing: 0.05em; width: 100%; text-align: center;
+            padding-top: 2rem; border-top: 1px solid var(--border); margin-top: 1rem;
+        }
+
+        /* BACK TO TOP - matches index.html */
+        .back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+            width: 40px; height: 40px; border: 1px solid var(--border);
+            background: rgba(3,5,8,0.9); color: var(--green);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transform: translateY(10px); transition: all 0.3s;
+            font-family: var(--mono); font-size: 1rem;
+        }
+        .back-to-top.show { opacity: 1; transform: translateY(0); }
+        .back-to-top:hover { background: var(--green-glow); border-color: var(--green); }
+
+        /* RESPONSIVE */
+        @media (max-width: 1100px) {
+            .flat-certs-grid { grid-template-columns: repeat(4, 1fr); }
+            .courses-inner-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 900px) {
+            .nav-links, .nav-status { display: none; }
+            .hamburger { display: flex; }
+            .split-panel { grid-template-columns: 1fr; }
+            .main-cert-panel { border-right: none; border-bottom: 1px solid var(--border); }
+            .courses-panel { max-height: none; }
+            .flat-certs-grid { grid-template-columns: repeat(3, 1fr); }
+            .progress-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 650px) {
+            .page-body { padding: 0 1.25rem 6rem; }
+            .flat-certs-grid { grid-template-columns: repeat(2, 1fr); }
+            .courses-inner-grid { grid-template-columns: 1fr; }
+            .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .main-cert-panel,
+            .flat-cert,
+            .main-cert-panel::after,
+            .flat-cert::after,
+            .main-cert-panel .main-cert-badge,
+            .main-cert-panel .main-cert-name,
+            .main-cert-panel .main-cert-issuer,
+            .main-cert-panel .main-cert-desc,
+            .main-cert-panel .main-cert-stats,
+            .main-cert-panel .main-cert-actions,
+            .main-cert-panel .main-cert-img-box,
+            .flat-cert-status,
+            .flat-cert-img,
+            .flat-cert-body,
+            .flat-cert-footer {
+                transition: none !important;
+                transform: none !important;
+            }
+            .main-cert-panel::after,
+            .flat-cert::after {
+                display: none;
+            }
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 24% 16%, rgba(0, 255, 157, 0.11), transparent 18%),
+                radial-gradient(circle at 82% 32%, rgba(0, 170, 255, 0.08), transparent 22%),
+                linear-gradient(180deg, #010201 0%, #020704 42%, #010201 100%);
+        }
+        body::before,
+        .grid-bg,
+        .corner-accent { display: none; }
+        .polyglot-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 18% 16%, rgba(0,255,157,0.12), transparent 18%),
+                radial-gradient(circle at 82% 22%, rgba(0,170,255,0.09), transparent 20%),
+                radial-gradient(circle at 52% 82%, rgba(0,255,157,0.06), transparent 28%),
+                linear-gradient(180deg, #010201 0%, #020704 48%, #010201 100%);
+        }
+        .polyglot-bg::before,
+        .polyglot-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+        }
+        .polyglot-bg::before {
+            background:
+                repeating-linear-gradient(90deg, rgba(0,255,157,0.025) 0 1px, transparent 1px 86px),
+                repeating-linear-gradient(180deg, rgba(0,255,157,0.016) 0 1px, transparent 1px 86px),
+                linear-gradient(135deg, transparent 0 19%, rgba(0,255,157,0.055) 19.2% 19.4%, transparent 19.6% 80%, rgba(0,170,255,0.045) 80.2% 80.4%, transparent 80.6%);
+            opacity: 0.72;
+        }
+        .polyglot-bg::after {
+            background:
+                radial-gradient(circle at 26% 22%, rgba(0,255,157,0.14), transparent 9%),
+                radial-gradient(circle at 74% 30%, rgba(0,170,255,0.12), transparent 12%),
+                radial-gradient(circle at 67% 76%, rgba(0,255,157,0.08), transparent 14%);
+            filter: blur(10px);
+            opacity: 0.55;
+        }
+        .cyber-lexicon {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+            font-family: var(--mono);
+        }
+        .cyber-term {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.28rem 0.62rem;
+            border: 1px solid rgba(0,255,157,0.10);
+            background: rgba(0,255,157,0.025);
+            color: rgba(0,255,157,0.34);
+            font-size: clamp(0.62rem, 1.1vw, 0.9rem);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-shadow: 0 0 18px rgba(0,255,157,0.13);
+            box-shadow: 0 0 24px rgba(0,255,157,0.035), inset 0 0 16px rgba(0,255,157,0.025);
+            transform: translate3d(0, 0, 0) rotate(var(--rot, 0deg));
+            opacity: var(--op, 0.64);
+            mix-blend-mode: screen;
+            animation: lexiconFloat var(--dur, 12s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+            will-change: transform, left, top;
+        }
+        .cyber-term.blue {
+            color: rgba(0,170,255,0.32);
+            border-color: rgba(0,170,255,0.10);
+            background: rgba(0,170,255,0.025);
+            text-shadow: 0 0 18px rgba(0,170,255,0.12);
+        }
+        .cyber-term.warm {
+            color: rgba(255,215,0,0.22);
+            border-color: rgba(255,215,0,0.08);
+            background: rgba(255,215,0,0.018);
+        }
+        .cyber-term.rtl {
+            direction: rtl;
+            font-family: var(--display);
+            letter-spacing: 0.02em;
+            text-transform: none;
+            font-weight: 700;
+        }
+        .cyber-term.large {
+            font-family: var(--display);
+            font-weight: 800;
+            font-size: clamp(1rem, 2.1vw, 1.8rem);
+            letter-spacing: 0.12em;
+            border-color: transparent;
+            background: transparent;
+            padding: 0;
+        }
+        body {
+            background:
+                radial-gradient(circle at 18% 10%, rgba(0,255,157,0.105), transparent 26%),
+                radial-gradient(circle at 84% 18%, rgba(0,170,255,0.085), transparent 28%),
+                linear-gradient(180deg, #000304 0%, #02090b 44%, #010304 100%) !important;
+        }
+        .polyglot-bg {
+            background:
+                radial-gradient(ellipse at 20% 14%, rgba(0,255,157,0.18), transparent 34%),
+                radial-gradient(ellipse at 82% 24%, rgba(0,170,255,0.16), transparent 32%),
+                radial-gradient(ellipse at 58% 86%, rgba(0,255,157,0.10), transparent 42%),
+                linear-gradient(180deg, rgba(0,3,5,0.24), rgba(0,9,10,0.72)) !important;
+            opacity: 1 !important;
+        }
+        .polyglot-bg::before {
+            background:
+                linear-gradient(115deg, transparent 0 18%, rgba(0,255,157,0.075) 28%, transparent 42% 100%),
+                linear-gradient(245deg, transparent 0 24%, rgba(0,170,255,0.060) 38%, transparent 56% 100%) !important;
+            filter: blur(18px);
+            opacity: 0.72 !important;
+            animation: auroraFlow 14s ease-in-out infinite;
+        }
+        .polyglot-bg::after {
+            inset: auto -20% -8% -20% !important;
+            height: 58vh;
+            transform-origin: 50% 100%;
+            transform: perspective(680px) rotateX(62deg);
+            background:
+                linear-gradient(90deg, rgba(0,255,157,0.09) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(0,255,157,0.075) 1px, transparent 1px),
+                radial-gradient(ellipse at 50% 100%, rgba(0,255,157,0.14), transparent 58%) !important;
+            background-size: 72px 72px, 72px 72px, auto !important;
+            filter: none !important;
+            opacity: 0.38 !important;
+            animation: gridBreathe 7s ease-in-out infinite;
+        }
+        .cyber-lexicon {
+            opacity: 0.42 !important;
+            mix-blend-mode: screen;
+        }
+        .cyber-term {
+            color: rgba(0,255,157,0.18) !important;
+            border-color: rgba(0,255,157,0.055) !important;
+            background: transparent !important;
+            text-shadow: 0 0 20px rgba(0,255,157,0.08) !important;
+        }
+        .cyber-term.blue {
+            color: rgba(0,170,255,0.16) !important;
+            border-color: rgba(0,170,255,0.05) !important;
+        }
+        .cyber-term.warm {
+            color: rgba(255,215,0,0.12) !important;
+            border-color: rgba(255,215,0,0.04) !important;
+        }
+        .cyber-term.large {
+            opacity: 0.42;
+        }
+        @keyframes lexiconFloat {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--rot, 0deg)); }
+            50% { transform: translate3d(var(--float-x, 10px), var(--float-y, -14px), 0) rotate(calc(var(--rot, 0deg) + var(--float-rot, 1deg))); }
+        }
+        @keyframes auroraFlow {
+            0%, 100% { transform: translate3d(-2%, -1%, 0) scale(1); opacity: 0.56; }
+            50% { transform: translate3d(3%, 2%, 0) scale(1.08); opacity: 0.86; }
+        }
+        @keyframes gridBreathe {
+            0%, 100% { opacity: 0.26; filter: drop-shadow(0 0 0 rgba(0,255,157,0)); }
+            50% { opacity: 0.44; filter: drop-shadow(0 0 12px rgba(0,255,157,0.14)); }
+        }
+        @media (max-width: 900px) {
+            .polyglot-bg::after {
+                height: 48vh;
+                background-size: 52px 52px, 52px 52px, auto !important;
+                opacity: 0.28 !important;
+            }
+            .cyber-lexicon { opacity: 0.28 !important; }
+        }
+        .polyglot-bg::after {
+            opacity: 0.22 !important;
+            mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.38) 18%, #000 42%, rgba(0,0,0,0.28) 74%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.38) 18%, #000 42%, rgba(0,0,0,0.28) 74%, transparent 100%);
+        }
+        nav {
+            padding: 0.85rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(1,2,5,0.88), rgba(1,2,5,0.48) 74%, transparent);
+            backdrop-filter: blur(18px);
+            border-bottom: none;
+            height: auto;
+        }
+        .nav-shell {
+            width: min(1180px, 100%);
+            height: 64px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.45rem 0.7rem 0.45rem 0.55rem;
+            border: 1px solid rgba(0,255,157,0.14);
+            background:
+                linear-gradient(135deg, rgba(0,255,157,0.08), rgba(0,170,255,0.025)),
+                rgba(3,5,8,0.76);
+            box-shadow: 0 18px 60px rgba(0,0,0,0.34), inset 0 0 26px rgba(0,255,157,0.035);
+            clip-path: polygon(1.2rem 0, 100% 0, 100% calc(100% - 1.2rem), calc(100% - 1.2rem) 100%, 0 100%, 0 1.2rem);
+        }
+        .nav-logo {
+            min-width: 0;
+            background: transparent;
+        }
+        .nav-logo img {
+            height: 52px;
+            width: 52px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 14px rgba(0,255,157,0.28));
+        }
+        .nav-links {
+            justify-self: center;
+            gap: 0.2rem;
+            padding: 0.25rem;
+            border: none;
+            background: transparent;
+        }
+        .nav-links a {
+            font-size: 0.68rem;
+            letter-spacing: 0.09em;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.58rem 0.72rem;
+            border: 1px solid transparent;
+            transition: color 0.2s, background 0.2s, border-color 0.2s;
+        }
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            left: 0.38rem;
+            right: 0.38rem;
+            bottom: 0.28rem;
+            height: 1px;
+            background: var(--green);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.2s;
+            opacity: 0.65;
+            margin-right: 0;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(0,255,157,0.055);
+            border-color: rgba(0,255,157,0.14);
+        }
+        .nav-links a:hover::before,
+        .nav-links a.active::before { transform: scaleX(1); }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            justify-self: end;
+        }
+        .nav-social {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(200,216,232,0.78);
+            border: 1px solid rgba(0,255,157,0.14);
+            background: rgba(0,255,157,0.035);
+            text-decoration: none;
+            transition: transform 0.2s, color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+        .nav-social:hover {
+            color: var(--green);
+            border-color: rgba(0,255,157,0.36);
+            background: rgba(0,255,157,0.09);
+            box-shadow: 0 0 20px rgba(0,255,157,0.12);
+            transform: translateY(-2px);
+        }
+        .nav-social svg { width: 18px; height: 18px; }
+        .nav-status span { color: var(--text-dim); }
+        .hamburger {
+            background: rgba(0,255,157,0.04);
+            border: 1px solid rgba(0,255,157,0.15);
+            padding: 9px;
+        }
+        .mobile-menu {
+            top: 88px;
+            left: 1rem;
+            right: 1rem;
+            border: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 1.25rem;
+            gap: 1rem;
+            box-shadow: 0 24px 70px rgba(0,0,0,0.42);
+        }
+        .mobile-menu a {
+            font-size: 0.78rem;
+            padding: 0.65rem 0.8rem;
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: color 0.2s, background 0.2s;
+        }
+        .mobile-menu a:hover,
+        .mobile-menu a.active { background: rgba(0,255,157,0.055); }
+        .mobile-socials { display: flex; gap: 0.7rem; padding-top: 0.4rem; }
+        @media (max-width: 900px) {
+            nav { padding: 0.7rem 1rem; }
+            .nav-shell { height: 62px; grid-template-columns: auto auto; }
+            .nav-links, .nav-status, .nav-actions .nav-social { display: none; }
+        }
+        @media (max-width: 560px) {
+            nav { padding: 0.65rem 0.8rem; }
+            .nav-shell { padding: 0.4rem 0.55rem; }
+            .nav-logo img { height: 48px; width: 48px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="polyglot-bg"></div>
+    <div class="cyber-lexicon" aria-hidden="true">
+        <span class="cyber-term large" style="left:3%;top:13%;--rot:-8deg;--op:.26;--dur:7s;--delay:-1s;--float-x:20px;--float-y:-18px;">FIREWALL</span>
+        <span class="cyber-term blue" style="left:64%;top:12%;--rot:4deg;--op:.56;--dur:6s;--delay:-3s;--float-x:-18px;--float-y:22px;">CORTAFUEGOS</span>
+        <span class="cyber-term" style="left:79%;top:26%;--rot:-5deg;--op:.48;--dur:8s;--delay:-5s;--float-x:19px;--float-y:-24px;">PARE-FEU</span>
+        <span class="cyber-term" style="left:4%;top:43%;--rot:6deg;--op:.24;--dur:7.5s;--delay:-2s;--float-x:24px;--float-y:18px;">VERSCHL&#220;SSELUNG</span>
+        <span class="cyber-term blue" style="left:46%;top:22%;--rot:-2deg;--op:.42;--dur:6.5s;--delay:-7s;--float-x:-22px;--float-y:-16px;">&#38450;&#28779;&#22681;</span>
+        <span class="cyber-term" style="left:3%;top:66%;--rot:-4deg;--op:.48;--dur:8.5s;--delay:-4s;--float-x:20px;--float-y:-21px;">&#26263;&#21495;&#21270;</span>
+        <span class="cyber-term blue" style="left:69%;top:54%;--rot:7deg;--op:.46;--dur:6.5s;--delay:-6s;--float-x:-18px;--float-y:22px;">&#48169;&#54868;&#48317;</span>
+        <span class="cyber-term" style="left:32%;top:75%;--rot:-3deg;--op:.44;--dur:7.5s;--delay:-8s;--float-x:23px;--float-y:-18px;">&#35469;&#35388;</span>
+        <span class="cyber-term rtl warm" style="left:73%;top:72%;--rot:-6deg;--op:.48;--dur:7s;--delay:-1.5s;--float-x:-17px;--float-y:-24px;">&#1578;&#1588;&#1601;&#1610;&#1585;</span>
+        <span class="cyber-term rtl" style="left:12%;top:80%;--rot:5deg;--op:.36;--dur:9s;--delay:-9s;--float-x:21px;--float-y:18px;">&#1605;&#1589;&#1575;&#1583;&#1602;&#1577;</span>
+        <span class="cyber-term blue" style="left:54%;top:38%;--rot:3deg;--op:.34;--dur:8s;--delay:-4.5s;--float-x:-22px;--float-y:18px;">KIMLIK DO&#286;RULAMA</span>
+        <span class="cyber-term" style="left:28%;top:20%;--rot:-3deg;--op:.24;--dur:9s;--delay:-6.5s;--float-x:18px;--float-y:-21px;">&#1064;&#1048;&#1060;&#1056;&#1054;&#1042;&#1040;&#1053;&#1048;&#1045;</span>
+        <span class="cyber-term warm" style="left:58%;top:82%;--rot:4deg;--op:.38;--dur:6.5s;--delay:-10s;--float-x:-15px;--float-y:-21px;">ZERO TRUST</span>
+        <span class="cyber-term blue" style="left:2%;top:54%;--rot:8deg;--op:.28;--dur:8.5s;--delay:-2.5s;--float-x:24px;--float-y:16px;">&#20837;&#20405;&#26908;&#30693;</span>
+        <span class="cyber-term" style="left:42%;top:58%;--rot:-6deg;--op:.34;--dur:7.5s;--delay:-7.5s;--float-x:-22px;--float-y:-19px;">ENDPOINT SECURITY</span>
+        <span class="cyber-term blue large" style="left:74%;top:40%;--rot:-10deg;--op:.3;--dur:7s;--delay:-3.5s;--float-x:18px;--float-y:21px;">IDS / IPS</span>
+        <span class="cyber-term" style="left:34%;top:10%;--rot:5deg;--op:.28;--dur:9s;--delay:-5.5s;--float-x:-20px;--float-y:22px;">RESPOSTA A INCIDENTES</span>
+        <span class="cyber-term blue" style="left:84%;top:62%;--rot:4deg;--op:.34;--dur:8s;--delay:-8.5s;--float-x:-22px;--float-y:-18px;">CONTROLLO ACCESSI</span>
+        <span class="cyber-term" style="left:10%;top:88%;--rot:-5deg;--op:.3;--dur:7.5s;--delay:-11s;--float-x:22px;--float-y:-21px;">ANALISIS PAKET</span>
+        <span class="cyber-term warm" style="left:50%;top:8%;--rot:-7deg;--op:.24;--dur:8.5s;--delay:-6s;--float-x:-18px;--float-y:16px;">MALWARE ANALYSIS</span>
+        <span class="cyber-term blue" style="left:25%;top:48%;--rot:7deg;--op:.2;--dur:9s;--delay:-9.5s;--float-x:22px;--float-y:-18px;">VULNERABILITY SCAN</span>
+        <span class="cyber-term" style="left:62%;top:66%;--rot:-3deg;--op:.28;--dur:7s;--delay:-12s;--float-x:-17px;--float-y:22px;">&#922;&#929;&#933;&#928;&#932;&#927;&#915;&#929;&#913;&#934;&#919;&#931;&#919;</span>
+    </div>
+
+    <nav>
+        <div class="nav-shell">
+            <a href="index.html#home" class="nav-logo"><img src="favicon_io/android-chrome-512x512.png" alt="SK Logo"></a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#coursework">Coursework</a></li>
+                <li><a href="certifications.html" class="active">Certs</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a class="nav-social" href="https://github.com/Solehjon-K05" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5Z"/></svg>
+                </a>
+                <a class="nav-social" href="https://linkedin.com/in/solekhdzhon-khuseynov-33ba47241/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.41v1.57h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13Zm1.78 13.04H3.54V8.98H7.1v11.47ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0Z"/></svg>
+                </a>
+                <div class="nav-status"><div class="status-dot"></div><span>ONLINE</span></div>
+                <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="index.html#coursework">Coursework</a>
+        <a href="certifications.html" class="active">Certifications</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+        <div class="mobile-socials">
+            <a href="https://github.com/Solehjon-K05" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/solekhdzhon-khuseynov-33ba47241/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <p class="hero-label">Portfolio / Certifications</p>
+            <h1>
+                <span class="line-1">Certs &</span>
+                <span class="line-2">Credentials</span>
+            </h1>
+            <p class="hero-desc">
+                // Industry-recognized credentials demonstrating<br>
+                // expertise in cybersecurity, networking,<br>
+                // and system administration.
+            </p>
+            <div class="hero-stats">
+                <div><div class="hero-stat-val" id="totalEarned">11</div><div class="hero-stat-label">Earned</div></div>
+                <div><div class="hero-stat-val">02</div><div class="hero-stat-label">Collections</div></div>
+                <div><div class="hero-stat-val">100%</div><div class="hero-stat-label">Pass Rate</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE BODY -->
+    <div class="page-body">
+        <div class="page-inner">
+
+            <!-- GROUP 1: GOOGLE -->
+            <div class="cert-group">
+                <div class="group-header">
+                    <div class="group-label">Google Cybersecurity Program</div>
+                    <div class="group-line"></div>
+                    <div class="group-count">01 Professional Cert &nbsp;+&nbsp; 09 Courses</div>
+                </div>
+
+                <div class="split-panel">
+                    <div class="main-cert-panel">
+                        <span class="main-cert-badge">&#127942; Professional Certificate</span>
+                        <div class="main-cert-img-box" id="googleMainImgBox">
+                            <img src="./Certs/GoogleCert.png" alt="Google Cybersecurity Professional Certificate"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 150%22%3E%3Crect width=%22200%22 height=%22150%22 fill=%22%231a73e8%22/%3E%3Ctext x=%2250%25%22 y=%2255%25%22 fill=%22white%22 font-size=%2214%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3EGoogle%3C/text%3E%3C/svg%3E'">
+                            <div class="img-label">[ CLICK TO PREVIEW ]</div>
+                        </div>
+                        <div class="main-cert-name">Google Cybersecurity Professional Certificate</div>
+                        <div class="main-cert-issuer">Google &nbsp;&middot;&nbsp; Coursera &nbsp;&middot;&nbsp; Dec 2025</div>
+                        <p class="main-cert-desc">Comprehensive 9-course program covering security fundamentals, network security, Linux, SQL, incident response, Python automation, and risk management frameworks.</p>
+                        <div class="main-cert-stats">
+                            <div class="mstat"><div class="mstat-val">9</div><div class="mstat-label">Courses</div></div>
+                            <div class="mstat"><div class="mstat-val">~200</div><div class="mstat-label">Hours</div></div>
+                            <div class="mstat"><div class="mstat-val">100%</div><div class="mstat-label">Pass</div></div>
+                        </div>
+                        <div class="main-cert-actions">
+                            <a href="https://www.coursera.org/account/accomplishments/specialization/PZMI6GAG6OWE" target="_blank" class="btn-green">&nearr; Verify</a>
+                            <button class="btn-blue" id="googleMainPreviewBtn">&#128065; Preview</button>
+                        </div>
+                    </div>
+
+                    <div class="courses-panel">
+                        <div class="courses-panel-header">
+                            <span>// Course Certificates (9)</span>
+                            <span style="color:var(--green);">SCROLL TO VIEW ALL</span>
+                        </div>
+                        <div class="courses-inner-grid" id="googleCoursesGrid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GROUP 2: CISCO -->
+            <div class="cert-group">
+                <div class="group-header">
+                    <div class="group-label" style="color:var(--blue)">Cisco Packet Tracer</div>
+                    <div class="group-line"></div>
+                    <div class="group-count">01 Badge &nbsp;+&nbsp; Lab Simulation</div>
+                </div>
+
+                <div class="split-panel">
+                    <div class="main-cert-panel">
+                        <span class="main-cert-badge" style="background:var(--blue);">Badge / Networking</span>
+                        <div class="main-cert-img-box" id="ciscoMainImgBox">
+                            <img src="./Certs/Packet_Tracer.png" alt="Cisco Packet Tracer badge"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 150%22%3E%3Crect width=%22200%22 height=%22150%22 fill=%22%230066cc%22/%3E%3Ctext x=%2250%25%22 y=%2255%25%22 fill=%22white%22 font-size=%2214%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3ECisco%3C/text%3E%3C/svg%3E'">
+                            <div class="img-label">[ CLICK TO PREVIEW ]</div>
+                        </div>
+                        <div class="main-cert-name">Cisco Packet Tracer</div>
+                        <div class="main-cert-issuer">Cisco Networking Academy &nbsp;&middot;&nbsp; Oct 2025</div>
+                        <p class="main-cert-desc">Validated hands-on network simulation experience using Cisco Packet Tracer to design topologies, test routing and switching behavior, and practice troubleshooting inside a safe lab environment before moving into live infrastructure work.</p>
+                        <div class="main-cert-stats">
+                            <div class="mstat"><div class="mstat-val" style="color:var(--blue);">1</div><div class="mstat-label">Badge</div></div>
+                            <div class="mstat"><div class="mstat-val" style="color:var(--blue);">Labs</div><div class="mstat-label">Simulated</div></div>
+                            <div class="mstat"><div class="mstat-val" style="color:var(--blue);">Cisco</div><div class="mstat-label">Track</div></div>
+                        </div>
+                        <div class="main-cert-actions">
+                            <a href="https://www.credly.com/badges/ae46b8d3-2d50-4edb-9f0c-b8e8e53f6e6c/public_url" target="_blank" class="btn-green">&nearr; Verify</a>
+                            <button class="btn-blue" id="ciscoMainPreviewBtn">&#128065; Preview</button>
+                        </div>
+                    </div>
+
+                    <div class="courses-panel">
+                        <div class="courses-panel-header">
+                            <span>// What It Covered</span>
+                            <span style="color:var(--blue);">Simulation Focus</span>
+                        </div>
+                        <div class="detail-stack">
+                            <div class="detail-card">
+                                <div class="detail-card-title">Overview</div>
+                                <p>This badge reflects practical work with Cisco Packet Tracer for building and testing small-to-medium network environments, reinforcing classroom networking concepts with hands-on configuration and verification.</p>
+                            </div>
+                            <div class="detail-card">
+                                <div class="detail-card-title">Key Skills</div>
+                                <div class="detail-list">
+                                    <div class="detail-list-item">Building logical network topologies with routers, switches, end devices, and segmented networks</div>
+                                    <div class="detail-list-item">Testing IP addressing, subnetting, port assignments, and baseline routing behavior in a simulated environment</div>
+                                    <div class="detail-list-item">Practicing troubleshooting workflows before deploying concepts to real networking labs</div>
+                                </div>
+                            </div>
+                            <div class="detail-card">
+                                <div class="detail-card-title">Tags</div>
+                                <div class="detail-tags">
+                                    <span class="detail-tag">Cisco</span>
+                                    <span class="detail-tag">Packet Tracer</span>
+                                    <span class="detail-tag">Routing</span>
+                                    <span class="detail-tag">Switching</span>
+                                    <span class="detail-tag">Topology Design</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GROUP 3: FEMA / TEEX -->
+            <div class="cert-group">
+                <div class="group-header">
+                    <div class="group-label" style="color:var(--orange)">TEEX / FEMA Training</div>
+                    <div class="group-line"></div>
+                    <div class="group-count">AWR173 &nbsp;+&nbsp; 13 Hours</div>
+                </div>
+
+                <div class="split-panel">
+                    <div class="main-cert-panel">
+                        <span class="main-cert-badge" style="background:var(--orange);">Course Certificate</span>
+                        <div class="main-cert-img-box" id="femaMainImgBox">
+                            <img src="./Certs/FEMA-C.png" alt="TEEX Information Security Basics certificate"
+                                 onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 150%22%3E%3Crect width=%22200%22 height=%22150%22 fill=%22%23262626%22/%3E%3Ctext x=%2250%25%22 y=%2255%25%22 fill=%22white%22 font-size=%2213%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3ETEEX%3C/text%3E%3C/svg%3E'">
+                            <div class="img-label">[ CLICK TO PREVIEW ]</div>
+                        </div>
+                        <div class="main-cert-name">Information Security Basics</div>
+                        <div class="main-cert-issuer">TEEX / DHS-FEMA AWR173 &nbsp;&middot;&nbsp; 13 Hours</div>
+                        <p class="main-cert-desc">Foundational cybersecurity training designed for entry and mid-level IT learners, covering information assurance, TCP/IP concepts, introductory network security, operating system security, and basic cryptography.</p>
+                        <div class="main-cert-stats">
+                            <div class="mstat"><div class="mstat-val" style="color:var(--orange);">13</div><div class="mstat-label">Hours</div></div>
+                            <div class="mstat"><div class="mstat-val" style="color:var(--orange);">70%</div><div class="mstat-label">Post-Test</div></div>
+                            <div class="mstat"><div class="mstat-val" style="color:var(--orange);">AWR173</div><div class="mstat-label">Course</div></div>
+                        </div>
+                        <div class="main-cert-actions">
+                            <a href="https://teex.org/class/AWR173/" target="_blank" class="btn-green">&nearr; Course Info</a>
+                            <button class="btn-blue" id="femaMainPreviewBtn">&#128065; Preview</button>
+                        </div>
+                    </div>
+
+                    <div class="courses-panel">
+                        <div class="courses-panel-header">
+                            <span>// Course Highlights</span>
+                            <span style="color:var(--orange);">TEEX Source</span>
+                        </div>
+                        <div class="detail-stack">
+                            <div class="detail-card">
+                                <div class="detail-card-title">Description</div>
+                                <p>TEEX describes this course as an introduction to the technological fundamentals of information security, intended to help students identify and stop common cyber threats while building baseline security knowledge.</p>
+                            </div>
+                            <div class="detail-card">
+                                <div class="detail-card-title">Covered Topics</div>
+                                <div class="detail-list">
+                                    <div class="detail-list-item">General information assurance concepts and the goals of defenders versus attackers</div>
+                                    <div class="detail-list-item">TCP/IP fundamentals, layered network security, and common offensive versus defensive techniques</div>
+                                    <div class="detail-list-item">Operating system security, secure browsing and messaging practices, and basic cryptography concepts</div>
+                                </div>
+                            </div>
+                            <div class="detail-card">
+                                <div class="detail-card-title">Completion Notes</div>
+                                <div class="detail-list">
+                                    <div class="detail-list-item">No prerequisite coursework listed by TEEX for AWR173</div>
+                                    <div class="detail-list-item">Certificate of completion awarded after finishing course content and scoring 70% or higher on the post-test</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <a href="index.html" class="footer-logo">
+                <img src="./logo/SK_LOGO.png" alt="SK Logo">
+            </a>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="certifications.html" class="active">Certifications</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact</a>
+                <a href="https://github.com/Solehjon-K05" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/solekhdzhon-khuseynov-33ba47241/" target="_blank">LinkedIn</a>
+            </div>
+            <div class="footer-copy">&copy; 2026 Solekhdzhon Khuseynov &nbsp;&middot;&nbsp; CUNY NYC College of Technology &nbsp;&middot;&nbsp; Computer Systems Technology</div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+
+    <!-- MODAL -->
+    <div id="previewModal" class="preview-modal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <span class="modal-head-title" id="modalTitle">Certificate Preview</span>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-canvas">
+                    <img id="modalImage" src="" alt="Certificate">
+                    <iframe id="modalPdf" src="" title="Certificate PDF" style="display:none;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script>
+    const googleCourses = [
+        { title: "Foundations of Cybersecurity", date: "2025", tags: ["Security Basics","Risk Mgmt"], imgSrc: "./Certs/Coursera Foundations.png", link: "https://coursera.org/share/f5a7deaf8bac32e2112ec1052104583a" },
+        { title: "Play It Safe: Manage Security Risks", date: "2025", tags: ["Risk Mgmt","Compliance"], imgSrc: "./Certs/Coursera Risks.png", link: "https://coursera.org/share/235f82560d80c3ab385fe2419c4126ed" },
+        { title: "Connect & Protect: Network Security", date: "2025", tags: ["Networking","TCP/IP"], imgSrc: "./Certs/Coursera Networks and Network Security.png", link: "https://coursera.org/share/d1e22c78e7dfbec90ef53b5f223d920d" },
+        { title: "Tools of the Trade: Linux & SQL", date: "2025", tags: ["Linux","SQL"], imgSrc: "./Certs/Coursera Linux and SQL.png", link: "https://coursera.org/share/26cb8a0e9291f33c43155d223b649eae" },
+        { title: "Assets, Threats & Vulnerabilities", date: "2025", tags: ["Threat Modeling","Vulns"], imgSrc: "./Certs/Coursera Vulnerabilities.png", link: "https://coursera.org/share/6a969040d84d2483655758f670a29d73" },
+        { title: "Sound the Alarm: Detection & Response", date: "2025", tags: ["IR","SIEM"], imgSrc: "./Certs/Coursera Detection and Response.png", link: "https://coursera.org/share/0a39ad3eb1516ae6fdb3ba84dfb269dd" },
+        { title: "Automate Cybersecurity with Python", date: "2025", tags: ["Python","Automation"], imgSrc: "./Certs/Coursera Python.png", link: "https://coursera.org/share/235f82560d80c3ab385fe2419c4126ed" },
+        { title: "Prepare for Cybersecurity Jobs", date: "2025", tags: ["Career Prep"], imgSrc: "./Certs/Coursera Prepare.png", link: "https://coursera.org/share/f65d84e4b014dc83b7ab7147fa0dfb3c" },
+        { title: "AI for Cybersecurity", date: "2025", tags: ["AI","Threat Detection"], imgSrc: "./Certs/CourseraAI.png", link: "https://coursera.org/share/6a969040d84d2483655758f670a29d73" }
+    ];
+
+    const PH = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 150%22%3E%3Crect width=%22200%22 height=%22150%22 fill=%22%23111%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 fill=%22%2300ff9d%22 font-size=%2212%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3ECert%3C/text%3E%3C/svg%3E';
+
+    function isPdfAsset(src) {
+        return /\.pdf($|[?#])/i.test(src);
+    }
+
+    function openPreview(title, src) {
+        document.getElementById('modalTitle').textContent = title;
+        const modalImage = document.getElementById('modalImage');
+        const modalPdf = document.getElementById('modalPdf');
+        if (isPdfAsset(src)) {
+            modalImage.style.display = 'none';
+            modalImage.src = '';
+            modalPdf.style.display = 'block';
+            modalPdf.src = src;
+        } else {
+            modalPdf.style.display = 'none';
+            modalPdf.src = '';
+            modalImage.style.display = 'inline-block';
+            modalImage.src = src;
+        }
+        document.getElementById('previewModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('previewModal').classList.remove('active');
+        document.getElementById('modalImage').src = '';
+        document.getElementById('modalPdf').src = '';
+        document.body.style.overflow = '';
+    }
+
+    document.getElementById('closeModalBtn').addEventListener('click', closeModal);
+    document.getElementById('previewModal').addEventListener('click', e => { if (e.target === document.getElementById('previewModal')) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    document.getElementById('googleMainImgBox').addEventListener('click', () => openPreview('Google Cybersecurity Professional Certificate', './Certs/GoogleCert.png'));
+    document.getElementById('googleMainPreviewBtn').addEventListener('click', () => openPreview('Google Cybersecurity Professional Certificate', './Certs/GoogleCert.png'));
+    document.getElementById('ciscoMainImgBox').addEventListener('click', () => openPreview('Cisco Packet Tracer', './Certs/Packet_Tracer.png'));
+    document.getElementById('ciscoMainPreviewBtn').addEventListener('click', () => openPreview('Cisco Packet Tracer', './Certs/Packet_Tracer.png'));
+    document.getElementById('femaMainImgBox').addEventListener('click', () => openPreview('Information Security Basics', './Certs/FEMA-C.png'));
+    document.getElementById('femaMainPreviewBtn').addEventListener('click', () => openPreview('Information Security Basics', './Certs/FEMA-C.png'));
+
+    function buildGoogleCourses() {
+        const grid = document.getElementById('googleCoursesGrid');
+        googleCourses.forEach((c) => {
+            const cell = document.createElement('div');
+            cell.className = 'course-cell';
+            cell.innerHTML = `
+                <div class="course-cell-img" data-src="${c.imgSrc}" data-title="${c.title}">
+                    <img src="${c.imgSrc}" alt="${c.title}" loading="lazy" onerror="this.src='${PH}'">
+                    <div class="hover-overlay">[ PREVIEW ]</div>
+                </div>
+                <div class="course-cell-body">
+                    <div class="course-cell-title">${c.title}</div>
+                    <div class="course-cell-meta">Google / Coursera &nbsp;·&nbsp; ${c.date}</div>
+                    <div class="course-cell-tags">${c.tags.map(t => `<span class="course-tag">${t}</span>`).join('')}</div>
+                </div>
+                <div class="course-cell-actions">
+                    <button class="micro-btn blue" data-src="${c.imgSrc}" data-title="${c.title}">Preview</button>
+                    <a href="${c.link}" target="_blank" class="micro-btn green">Verify ↗</a>
+                </div>
+            `;
+            grid.appendChild(cell);
+        });
+        grid.querySelectorAll('[data-src]').forEach(el => {
+            el.addEventListener('click', () => openPreview(el.dataset.title, el.dataset.src));
+        });
+    }
+
+    function init3DTilt() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        document.querySelectorAll('.main-cert-panel').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const px = (e.clientX - rect.left) / rect.width;
+                const py = (e.clientY - rect.top) / rect.height;
+                const rx = (0.5 - py) * 10;
+                const ry = (px - 0.5) * 12;
+
+                card.style.setProperty('--rx', `${rx.toFixed(2)}deg`);
+                card.style.setProperty('--ry', `${ry.toFixed(2)}deg`);
+                card.style.setProperty('--lift', '10px');
+                card.style.setProperty('--glow-x', `${(px * 100).toFixed(1)}%`);
+                card.style.setProperty('--glow-y', `${(py * 100).toFixed(1)}%`);
+                card.classList.add('is-3d-active');
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.setProperty('--rx', '0deg');
+                card.style.setProperty('--ry', '0deg');
+                card.style.setProperty('--lift', '0px');
+                card.style.setProperty('--glow-x', '50%');
+                card.style.setProperty('--glow-y', '50%');
+                card.classList.remove('is-3d-active');
+            });
+        });
+    }
+
+    const ham = document.getElementById('hamburger');
+    const mob = document.getElementById('mobileMenu');
+    ham.addEventListener('click', () => mob.classList.toggle('open'));
+    document.addEventListener('click', e => { if (!ham.contains(e.target) && !mob.contains(e.target)) mob.classList.remove('open'); });
+
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => btt.classList.toggle('show', scrollY > 300));
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    buildGoogleCourses();
+    init3DTilt();
+    </script>
+</body>
+</html>
+

